@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
  * @author Binyamin Pyanin
  * @since 20210212
  */
-
 @Slf4j
 @ControllerAdvice
 public class ExceptionController {

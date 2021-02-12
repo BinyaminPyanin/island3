@@ -1,0 +1,18 @@
+<!doctype html>
+<!-- Important: must specify, else rendering will be effected -->
+<html lang='en'>
+<head>
+    <title>UpgradeIsland</title>
+    <!-- Important: The Custom element uses utf8 characters -->
+    <meta charset='utf-8'/>
+    <meta name='viewport' content='width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes'/>
+    <script src='https://unpkg.com/rapidoc/dist/rapidoc-min.js'></script>
+    <script src="https://unpkg.com/rapipdf/dist/rapipdf-min.js"></script>
+</head>
+<body>
+<rapi-pdf style = "padding-left:42px; height:35px; font-size:15px; background-color:#14191f; width:100%"
+          spec-url = "/openapi/openapi.yaml" hide-input="true" pdf-title="UpgradeIsland API" pdf-footer-text="UpgradeIsland API" button-color="#aec2e0"></rapi-pdf>
+<rapi-doc id="rapidoc" spec-url="/openapi/openapi.yaml" layout="row" sort-tags="true" sort-endpoints-by="method"
+          show-header="false" theme="dark" text-color="#aec2e0" bg-color="#14191f"></rapi-doc>
+</body>
+</html>

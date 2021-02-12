@@ -14,7 +14,7 @@ This project requires:
  `docker-compose version 1.27.4, build 40524192`
  
 
-## Running
+### Running
 
 The project includes a Maven wrapper. So no build tool needs to be installed.
 
@@ -26,28 +26,37 @@ To run the project:
 - launch a Postgres docker instance: ```docker-compose up```
 - start the project: ```./mvnw spring-boot:run -pl island-application```
 
-##Swagger
+### Swagger/OpenAPI End Points
 
-API documentation available at 
-http://localhost:8080/
+OpenAPI documentation can be accessed with the following endpoints:
+ 
+http://localhost:8080/openapi/rapidoc/index.html using [RapiDoc](https://mrin9.github.io/RapiDoc/)
+http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://swagger.io/tools/swagger-ui/)
+
+To generate Open API
+
+`./mvnw clean package`
+
+`./mvnw spring-boot:run -pl island-application`
+
+New terminal window
+
+`./mvnw -Dtest=OpenApiSpecificationGeneration test -DfailIfNoTests=false`
 
 
-##Health check
-Available at 
+### Health check
+`http://localhost:8080/health`
 
-http://localhost:8080/health
-
-##Info check
-Available at 
-
-http://localhost:8080/info
+### Info check
+`http://localhost:8080/info`
 
 
+### 3rd party libraries used
+```Lombock``` 
+`https://projectlombok.org/`
 
-##3rd party libraries used
-```Lombock``` https://projectlombok.org/
-
-```Vavr``` https://www.vavr.io/
+```Vavr``` 
+`https://www.vavr.io/`
 
 
 ##JUnit
