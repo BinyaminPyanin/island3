@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -23,6 +24,7 @@ import java.util.Properties;
  */
 @Slf4j
 @RestController
+@Tag(name = "System Git Information Operations.")
 public class VersionController {
     private static final String GIT_COMMIT_ID = "git.commit.id";
     private static final String NOT_AVAILABLE = "NOT_AVAILABLE";
