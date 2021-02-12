@@ -33,7 +33,15 @@ http://localhost:8080/
 
 
 ##Health check
-Available at http://localhost:8080/health
+Available at 
+
+http://localhost:8080/health
+
+##Info check
+Available at 
+
+http://localhost:8080/info
+
 
 
 ##3rd party libraries used
