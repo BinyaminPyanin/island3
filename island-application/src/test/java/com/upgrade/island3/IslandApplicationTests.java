@@ -14,9 +14,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
-@SpringBootTest(classes = {Island3Application.class})
+@SpringBootTest(classes = {IslandApplication.class})
 @AutoConfigureMockMvc
-class Island3ApplicationTests {
+class IslandApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 

@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Island3Application {
+public class IslandApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Island3Application.class, args);
+        SpringApplication.run(IslandApplication.class, args);
     }
 
 }
