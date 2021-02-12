@@ -23,8 +23,13 @@ To build:
 ```./mvnw clean package```
 
 To run the project:
-- launch a Postgres docker instance: ```docker-compose up```
-- start the project: ```./mvnw spring-boot:run -pl island-application```
+- launch a Postgres docker instance: 
+
+```docker-compose up```
+
+- start the project: 
+
+```./mvnw spring-boot:run -pl island-application```
 
 ### Swagger/OpenAPI End Points
 
@@ -35,7 +40,7 @@ http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://s
 
 To generate Open API
 
-`./mvnw clean package`
+`mvn clean install`
 
 `./mvnw spring-boot:run -pl island-application`
 
