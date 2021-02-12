@@ -44,16 +44,4 @@ Available at http://localhost:8080/health
 
 ##JUnit
 
-
---local RabbitMQ 
-
-http://127.0.0.1:15672/#/queues 
-
-guest/guest 
-
-
---local buckets 
-
-http://localhost:4566/minio/login  
-
-minio/minio123 
+ 
