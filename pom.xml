@@ -81,6 +81,14 @@
             <artifactId>springdoc-openapi-webmvc-core</artifactId>
             <version>1.5.2</version>
         </dependency>
+        <!--To generate openapi.yml ONLY  http://localhost:8080/v3/api-docs/-->
+        <!--
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+        -->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
