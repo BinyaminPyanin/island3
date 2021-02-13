@@ -41,9 +41,17 @@ http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://s
 
 To generate Open API
 
+Uncomment 
+
+`<dependency>
+   <groupId>org.springdoc</groupId>
+   <artifactId>springdoc-openapi-ui</artifactId>
+   <version>1.5.2</version>
+</dependency>`
+
 `mvn clean install`
 
-`./mvnw spring-boot:run -pl island-application`
+`./mvnw spring-boot:run -pl island-application or via IntelliJ`
 
 New terminal window
 
@@ -64,6 +72,9 @@ New terminal window
 ```Vavr``` 
 `https://www.vavr.io/`
 
-
+## Constraints implemented
+ 1. The users will need to find out when the campsite is available. 
+So the system should expose an API to provide information of the
+availability of the campsite for a given date range with the default being 1 month.
 
  

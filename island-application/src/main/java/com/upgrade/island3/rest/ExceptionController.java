@@ -2,13 +2,15 @@ package com.upgrade.island3.rest;
 
 import com.upgrade.island3.exception.IslandApplicationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
  * ExceptionController
@@ -18,21 +20,19 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @ControllerAdvice
-public class ExceptionController {
+public class ExceptionController extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Throwable.class)
-    public String rsExceptionHandler(Throwable ex, HttpServletRequest request, Model map) {
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> rsExceptionHandler(RuntimeException ex, WebRequest request, Model map) {
         log.debug("Exception: {}", ex.getLocalizedMessage());
-        log.error("Unknown error", ex);
-        return "error";
+        return handleExceptionInternal(ex, ex.getLocalizedMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
-    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IslandApplicationException.class)
-    public String rsExceptionHandler(IslandApplicationException ex, HttpServletRequest request, Model map) {
+    public ResponseEntity<Object> rsExceptionHandler(IslandApplicationException ex, WebRequest request, Model map) {
         log.debug("Exception: {} ({})", ex.getErrorCode(), ex.getErrorCode().getCode(), ex);
-        return "error";
+        return handleExceptionInternal(ex, ex.getLocalizedMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
 }

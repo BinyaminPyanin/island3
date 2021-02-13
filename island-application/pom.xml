@@ -15,6 +15,11 @@
     <dependencies>
         <dependency>
             <groupId>com.upgrade</groupId>
+            <artifactId>commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.upgrade</groupId>
             <artifactId>db</artifactId>
             <version>${project.version}</version>
         </dependency>
