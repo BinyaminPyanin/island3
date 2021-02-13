@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Getter
 public class LocalDateRange {
-    private static final ZoneId UTC = ZoneId.of("UTC");
+    public static final ZoneId UTC = ZoneId.of("UTC");
 
     private LocalDate fromDate;
     private Optional<ResponseEntity> error;

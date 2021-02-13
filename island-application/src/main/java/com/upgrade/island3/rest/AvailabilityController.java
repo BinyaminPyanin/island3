@@ -59,8 +59,14 @@ public class AvailabilityController {
             return localDateRange.getError().get();
         }
 
-        List<LocalDate> listOfAvailabilities =
-                availabilityService.findAvailability(localDateRange.getFromDate(), localDateRange.getToDate());
+        List<LocalDate> listOfAvailabilities;
+        if (null == fromDate && null == toDate) {
+            listOfAvailabilities =
+                    availabilityService.findAvailability(LocalDate.now(LocalDateRange.UTC), LocalDate.now(LocalDateRange.UTC).plusMonths(1));
+        } else {
+            listOfAvailabilities =
+                    availabilityService.findAvailability(localDateRange.getFromDate(), localDateRange.getToDate());
+        }
 
         if (listOfAvailabilities.isEmpty()) {
             return ResponseEntity.

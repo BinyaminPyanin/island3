@@ -45,3 +45,8 @@ insert into public.SPOT(NAME,DESCRIPTION) values ('Weimaraners','Weimaraners spo
 insert into public.SPOT(NAME,DESCRIPTION) values ('Newfoundlands','Newfoundlands spot');
 insert into public.SPOT(NAME,DESCRIPTION) values ('Belgian Malinois','Belgian Malinois spot');
 
+--SPOT
+insert into public.AVAILABILITY(SPOT_ID,AVAILABLE_DATE) values ('1','2021-06-01');
+insert into public.AVAILABILITY(SPOT_ID,AVAILABLE_DATE) values ('2','2021-07-01');
+insert into public.AVAILABILITY(SPOT_ID,AVAILABLE_DATE) values ('3','2021-08-01');
+insert into public.AVAILABILITY(SPOT_ID,AVAILABLE_DATE) values ('4','2021-09-01');
