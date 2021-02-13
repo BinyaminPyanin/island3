@@ -1,6 +1,6 @@
-#Upgrade Island
+# Upgrade Island
 
-##Description
+## Description
 This project represents Upgrade Island
 
 ## Requirements
@@ -36,6 +36,7 @@ To run the project:
 OpenAPI documentation can be accessed with the following endpoints:
  
 http://localhost:8080/openapi/rapidoc/index.html using [RapiDoc](https://mrin9.github.io/RapiDoc/)
+
 http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://swagger.io/tools/swagger-ui/)
 
 To generate Open API
@@ -64,6 +65,5 @@ New terminal window
 `https://www.vavr.io/`
 
 
-##JUnit
 
  
