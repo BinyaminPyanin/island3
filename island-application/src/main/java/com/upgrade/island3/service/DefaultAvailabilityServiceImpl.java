@@ -43,5 +43,19 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
         return listOfAvailabilities.stream().map(Availability::getAvailableDate).collect(Collectors.toList());
     }
 
+    @Override
+    public List<LocalDate> findAvailability() {
+        log.info("Fetching all availabilities");
+
+        List<Availability> listOfAvailabilities = availabilityRepository.getAllAvailableDates();
+        log.info("All availabilities : {}", listOfAvailabilities.stream().map(Object::toString).collect(Collectors.joining(",")));
+
+        if (listOfAvailabilities.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return listOfAvailabilities.stream().map(Availability::getAvailableDate).collect(Collectors.toList());
+    }
+
 
 }

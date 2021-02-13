@@ -6,5 +6,6 @@ import java.util.List;
 public interface AvailabilityService {
 
     List<LocalDate> findAvailability(LocalDate startDate, LocalDate endDate);
+    List<LocalDate> findAvailability();
 
 }

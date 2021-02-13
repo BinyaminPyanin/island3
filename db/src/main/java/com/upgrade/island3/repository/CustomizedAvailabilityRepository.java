@@ -8,5 +8,5 @@ import java.util.List;
 public interface CustomizedAvailabilityRepository {
 
     List<Availability> getAvailableDatesByRange(LocalDate fromDate, LocalDate toDate);
-
+    List<Availability> getAllAvailableDates();
 }

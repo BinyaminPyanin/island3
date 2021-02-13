@@ -14,6 +14,7 @@ import java.util.List;
 public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabilityRepository {
 
     private static final String GET_DATES_IN_RANGE_HQL = " from Availability where availableDate between :fromDate and :toDate";
+    private static final String GET_ALL_DATES_IN_RANGE_HQL = " from Availability";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -23,6 +24,11 @@ public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabil
         return getAvailableDatesByRange(fromDate, toDate, false);
     }
 
+    @Override
+    public List<Availability> getAllAvailableDates() {
+        return getAllAvailableDates(false);
+    }
+
     private Query buildDateRangeQuery(String sqlPrefix, LocalDate fromDate, LocalDate toDate) {
         return this.entityManager.
                 createQuery(sqlPrefix).setParameter("fromDate", fromDate).setParameter("toDate", toDate);
@@ -30,6 +36,16 @@ public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabil
 
     private List<Availability> getAvailableDatesByRange(LocalDate fromDate, LocalDate toDate, boolean isLocked) {
         Query query = buildDateRangeQuery(GET_DATES_IN_RANGE_HQL, fromDate, toDate);
+
+        if (isLocked) {
+            query.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+        }
+
+        return query.getResultList();
+    }
+
+    private List<Availability> getAllAvailableDates(boolean isLocked) {
+        Query query = this.entityManager.createQuery(GET_ALL_DATES_IN_RANGE_HQL);
 
         if (isLocked) {
             query.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);

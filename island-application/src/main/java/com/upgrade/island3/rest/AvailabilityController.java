@@ -62,7 +62,7 @@ public class AvailabilityController {
         List<LocalDate> listOfAvailabilities;
         if (null == fromDate && null == toDate) {
             listOfAvailabilities =
-                    availabilityService.findAvailability(LocalDate.now(LocalDateRange.UTC), LocalDate.now(LocalDateRange.UTC).plusMonths(1));
+                    availabilityService.findAvailability();
         } else {
             listOfAvailabilities =
                     availabilityService.findAvailability(localDateRange.getFromDate(), localDateRange.getToDate());
