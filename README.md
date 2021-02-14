@@ -86,7 +86,10 @@ New terminal window
 
 ## Constraints implemented
  1. The users will need to find out when the campsite is available. 
-So the system should expose an API to provide information of the
-availability of the campsite for a given date range with the default being 1 month.
+    So the system should expose an API to provide information of the
+    availability of the campsite for a given date range with the default being 1 month.
+ 2. Provide an end point for reserving the campsite. The user will provide his/her email & full name at the time of reserving the campsite
+    along with intended arrival date and departure date. Return a unique booking identifier back to the caller if the reservation is successful.
+    
 
  

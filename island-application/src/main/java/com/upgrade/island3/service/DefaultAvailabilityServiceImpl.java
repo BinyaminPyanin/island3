@@ -12,6 +12,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * DefaultAvailabilityServiceImpl
+ *
+ * @author Binyamin Pyanin
+ * @since 20210214
+ */
 @Service
 @Slf4j
 public class DefaultAvailabilityServiceImpl implements AvailabilityService {
@@ -19,6 +25,7 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
 
     private AvailabilityRepository availabilityRepository;
 
+    //TODO why?
     @Value("${availability.default.date.range.days:31}")
     private int defaultDateRangeDays;
 
