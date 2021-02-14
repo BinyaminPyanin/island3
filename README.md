@@ -92,4 +92,18 @@ New terminal window
     along with intended arrival date and departure date. Return a unique booking identifier back to the caller if the reservation is successful.
     
 
- 
+ ## Testing
+ Request body json example:
+ ```
+{
+        "firstName": "D",
+        "lastName": "Py",
+        "email": "dimik_p@yahoo.com",
+        "requestDates":
+        {
+            "arrivalDate": "2021-06-01",
+            "departureDate": "2021-07-01"
+        }
+        
+    }
+```

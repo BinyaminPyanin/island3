@@ -17,9 +17,12 @@ import java.util.UUID;
 @Slf4j
 public class DefaultReservationServiceImpl implements ReservationService {
     @Override
-    public ReservationResponseDto makeReservation(ReservationRequestDto reservationUserDto) {
+    public ReservationResponseDto makeReservation(ReservationRequestDto reservationRequest) {
+        log.info("reservationRequest {}", reservationRequest);
 
         //TODO rewrite call DB
+
+
         ReservationResponseDto reservationResponseDto = new ReservationResponseDto();
         reservationResponseDto.setBookingUuid(UUID.randomUUID().toString());
         return reservationResponseDto;
