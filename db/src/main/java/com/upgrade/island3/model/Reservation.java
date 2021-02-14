@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "RESERVATION")
@@ -19,17 +20,23 @@ public class Reservation {
     @SequenceGenerator(name = "reservation_sequence", sequenceName = "reservation_id_sequence", allocationSize = 1)
     private long id;
 
+    @Version
+    private Integer version;
+
     @Column(nullable = false, unique = true)
-    private String uuid;
+    private String bookingUuid;
 
-    @Column(nullable = false)
-    private long userId;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "status_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "reservation_status_id_fkey"))
+    private Status status;
 
-    @Column(nullable = false)
-    private long statusId;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "reservation_user_id_fkey"))
+    private IslandUser user;
 
-    @Column(nullable = false)
-    private long availabilityId;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "spot_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "reservation_spot_id_fkey"))
+    private Spot spot;
 
     @Column(nullable = false)
     private long price;
@@ -46,4 +53,6 @@ public class Reservation {
     @Column(nullable = false)
     private LocalDate updateDate;
 
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ReservedDate> reservedDates;
 }

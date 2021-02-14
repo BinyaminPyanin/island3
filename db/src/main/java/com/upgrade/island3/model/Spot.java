@@ -12,16 +12,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Spot {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "spot_sequence")
     @SequenceGenerator(name = "spot_sequence", sequenceName = "spot_id_sequence", allocationSize = 1)
     private long id;
+
+    @Version
+    private Integer version;
 
     @Column
     private String name;
 
     @Column
     private String description;
-
 }

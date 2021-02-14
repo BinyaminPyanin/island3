@@ -1,8 +1,3 @@
---USER_TYPE
-insert into public.USER_TYPE(TYPE,DESCRIPTION) values ('ADMIN','admin user');
-insert into public.USER_TYPE(TYPE,DESCRIPTION) values ('GUEST','guest user');
-insert into public.USER_TYPE(TYPE,DESCRIPTION) values ('REGISTERED','registered user');
-
 --STATUS
 insert into public.STATUS(CODE,DESCRIPTION) values ('AVAILABLE','Spot is available');
 insert into public.STATUS(CODE,DESCRIPTION) values ('RESERVED','Spot is reserved');
@@ -46,7 +41,7 @@ insert into public.SPOT(NAME,DESCRIPTION) values ('Newfoundlands','Newfoundlands
 insert into public.SPOT(NAME,DESCRIPTION) values ('Belgian Malinois','Belgian Malinois spot');
 
 --SPOT
-insert into public.AVAILABILITY(SPOT_ID,AVAILABLE_DATE) values ('1','2021-06-01');
-insert into public.AVAILABILITY(SPOT_ID,AVAILABLE_DATE) values ('2','2021-07-01');
-insert into public.AVAILABILITY(SPOT_ID,AVAILABLE_DATE) values ('3','2021-08-01');
-insert into public.AVAILABILITY(SPOT_ID,AVAILABLE_DATE) values ('4','2021-09-01');
+insert into public.AVAILABILITY(AVAILABLE_DATE) values ('2021-06-01');
+insert into public.AVAILABILITY(AVAILABLE_DATE) values ('2021-07-01');
+insert into public.AVAILABILITY(AVAILABLE_DATE) values ('2021-08-01');
+insert into public.AVAILABILITY(AVAILABLE_DATE) values ('2021-09-01');
