@@ -4,6 +4,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * ReservedDate
+ *
+ * @author Binyamin Pyanin
+ * @since 20210214
+ */
 @Entity
 @Table(name = "RESERVED_DATE")
 @Getter
@@ -11,6 +17,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ReservedDate {
 
     @Id

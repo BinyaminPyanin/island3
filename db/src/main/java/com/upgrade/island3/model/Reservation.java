@@ -6,6 +6,12 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Reservation
+ *
+ * @author Binyamin Pyanin
+ * @since 20210214
+ */
 @Entity
 @Table(name = "RESERVATION")
 @Getter
@@ -13,6 +19,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Reservation {
 
     @Id

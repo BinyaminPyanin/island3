@@ -4,6 +4,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * Status
+ *
+ * @author Binyamin Pyanin
+ * @since 20210214
+ */
 @Entity
 @Table(name = "STATUS")
 @Getter
@@ -11,6 +17,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "status_sequence")

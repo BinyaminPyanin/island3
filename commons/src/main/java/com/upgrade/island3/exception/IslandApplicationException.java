@@ -8,14 +8,9 @@ package com.upgrade.island3.exception;
  */
 
 public class IslandApplicationException extends RuntimeException {
-    private final BaseErrorCode errorCode;
 
-    public IslandApplicationException(String message, BaseErrorCode errorCode) {
+    public IslandApplicationException(String message) {
         super(message);
-        this.errorCode = errorCode;
     }
 
-    public BaseErrorCode getErrorCode() {
-        return errorCode;
-    }
 }

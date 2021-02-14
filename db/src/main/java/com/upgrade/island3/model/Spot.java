@@ -4,6 +4,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * Spot
+ *
+ * @author Binyamin Pyanin
+ * @since 20210214
+ */
 @Entity
 @Table(name = "SPOT")
 @Getter
@@ -11,6 +17,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Spot {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "spot_sequence")

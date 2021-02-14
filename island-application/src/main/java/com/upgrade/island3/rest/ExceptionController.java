@@ -31,7 +31,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(IslandApplicationException.class)
     public ResponseEntity<Object> rsExceptionHandler(IslandApplicationException ex, WebRequest request, Model map) {
-        log.debug("Exception: {} ({})", ex.getErrorCode(), ex.getErrorCode().getCode(), ex);
+        log.debug("Exception: {}", ex.getLocalizedMessage());
         return handleExceptionInternal(ex, ex.getLocalizedMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 

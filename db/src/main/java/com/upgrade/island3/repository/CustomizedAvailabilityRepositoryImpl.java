@@ -31,7 +31,9 @@ public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabil
 
     private Query buildDateRangeQuery(String sqlPrefix, LocalDate fromDate, LocalDate toDate) {
         return this.entityManager.
-                createQuery(sqlPrefix).setParameter("fromDate", fromDate).setParameter("toDate", toDate);
+                createQuery(sqlPrefix).
+                setParameter("fromDate", fromDate).
+                setParameter("toDate", toDate);
     }
 
     private List<Availability> getAvailableDatesByRange(LocalDate fromDate, LocalDate toDate, boolean isLocked) {

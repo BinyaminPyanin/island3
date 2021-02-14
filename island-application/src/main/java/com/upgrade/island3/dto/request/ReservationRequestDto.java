@@ -32,6 +32,4 @@ public class ReservationRequestDto {
     @Valid
     @NotNull
     private RequestDatesDto requestDates;
-
-
 }
