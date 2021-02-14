@@ -62,10 +62,10 @@ public class AvailabilityController {
         List<LocalDate> listOfAvailabilities;
         if (null == fromDate && null == toDate) {
             listOfAvailabilities =
-                    availabilityService.findAvailability();
+                    availabilityService.findAvailabilityDates();
         } else {
             listOfAvailabilities =
-                    availabilityService.findAvailability(localDateRange.getFromDate(), localDateRange.getToDate());
+                    availabilityService.findAvailabilityDates(localDateRange.getFromDate(), localDateRange.getToDate());
         }
 
         if (listOfAvailabilities.isEmpty()) {

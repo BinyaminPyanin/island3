@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DefaultAvailabilityServiceImpl implements AvailabilityService {
 
-
     private AvailabilityRepository availabilityRepository;
 
     //TODO why?
@@ -35,7 +34,32 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
     }
 
     @Override
-    public List<LocalDate> findAvailability(LocalDate fromDate, LocalDate toDate) {
+    public List<Availability> findAvailability(LocalDate fromDate, LocalDate toDate) {
+        return getAvailability(fromDate, toDate);
+    }
+
+    @Override
+    public List<Availability> findAvailability() {
+        return getAllAvailabilities();
+    }
+
+    @Override
+    public List<LocalDate> findAvailabilityDates(LocalDate fromDate, LocalDate toDate) {
+        log.info("Fetching available dates for requested date range from [{}] to [{}]", fromDate, toDate);
+
+        List<Availability> listOfAvailabilities = getAvailability(fromDate, toDate);
+        return listOfAvailabilities.stream().map(Availability::getAvailableDate).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LocalDate> findAvailabilityDates() {
+        log.info("Fetching all available dates");
+
+        List<Availability> listOfAvailabilities = getAllAvailabilities();
+        return listOfAvailabilities.stream().map(Availability::getAvailableDate).collect(Collectors.toList());
+    }
+
+    private List<Availability> getAvailability(LocalDate fromDate, LocalDate toDate) {
         log.info("Fetching availabilities for requested date range from [{}] to [{}]", fromDate, toDate);
 
         List<Availability> listOfAvailabilities = availabilityRepository.getAvailableDatesByRange(fromDate, toDate);
@@ -47,11 +71,10 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
             return Collections.emptyList();
         }
 
-        return listOfAvailabilities.stream().map(Availability::getAvailableDate).collect(Collectors.toList());
+        return listOfAvailabilities;
     }
 
-    @Override
-    public List<LocalDate> findAvailability() {
+    private List<Availability> getAllAvailabilities() {
         log.info("Fetching all availabilities");
 
         List<Availability> listOfAvailabilities = availabilityRepository.getAllAvailableDates();
@@ -61,8 +84,7 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
             return Collections.emptyList();
         }
 
-        return listOfAvailabilities.stream().map(Availability::getAvailableDate).collect(Collectors.toList());
+        return listOfAvailabilities;
     }
-
 
 }
