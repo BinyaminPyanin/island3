@@ -9,3 +9,4 @@ services:
       POSTGRES_DB: island_camping10
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
+      

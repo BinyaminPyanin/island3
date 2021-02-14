@@ -31,6 +31,18 @@ To run the project:
 
 ```./mvnw spring-boot:run -pl island-application```
 
+To build the docker image run:
+
+```docker build --network=host -f docker/Dockerfile --tag island:latest .```
+
+Then to run that docker image run:
+
+```docker run -p 8080:8080 -t island:latest```
+
+
+
+
+
 ### Swagger/OpenAPI End Points
 
 OpenAPI documentation can be accessed with the following endpoints:

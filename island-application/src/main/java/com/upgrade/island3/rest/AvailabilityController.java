@@ -38,8 +38,8 @@ public class AvailabilityController {
         this.availabilityService = availabilityService;
     }
 
-    @Operation(summary = "Returns the availabilities for the specified `fromDate`,`toDate`.",
-            description = "Returns the availabilities for the specified date range `fromDate`,`toDate`.")
+    @Operation(summary = "Returns the all availabilities or availabilities for the specified `fromDate`,`toDate`.",
+            description = "Returns the all availabilities or availabilities for the specified date range `fromDate`,`toDate`.")
     @ApiResponse(responseCode = "200",
             description = "Returns all the availabilities for the specified date range `fromDate`,`toDate`.",
             content = @Content(array = @ArraySchema(schema = @Schema(type = "string", format = "uri"))))
