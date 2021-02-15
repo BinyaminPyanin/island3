@@ -4,6 +4,7 @@ import com.upgrade.island3.converter.ModelDtoConverter;
 import com.upgrade.island3.converter.ReservationModel;
 import com.upgrade.island3.dto.request.ReservationRequestDto;
 import com.upgrade.island3.dto.response.ReservationResponseDto;
+import com.upgrade.island3.exception.IslandApplicationException;
 import com.upgrade.island3.model.IslandUser;
 import com.upgrade.island3.model.Reservation;
 import com.upgrade.island3.repository.ReservationRepository;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -76,29 +78,31 @@ public class DefaultReservationServiceImpl implements ReservationService {
 //            );
 //        }
 
-        IslandUser islandUser = new IslandUser();
-        islandUser.setFirstName(reservationRequest.getFirstName());
-        islandUser.setLastName(reservationRequest.getLastName());
-        islandUser.setEmail(reservationRequest.getEmail());
+        IslandUser islandUser = IslandUser.builder().
+                firstName(reservationRequest.getFirstName()).
+                lastName(reservationRequest.getLastName()).
+                email(reservationRequest.getEmail()).
+                build();
         this.islandUserService.save(islandUser);
 
-        Reservation reservation = new Reservation();
-        reservation.setBookingUuid(UUID.randomUUID().toString());
-        reservation.setStatus(this.statusService.getReserved());
-        reservation.setUser(islandUser);
-        reservation.setSpot(this.spotService.randomSpot());
-        reservation.setPrice(0);
-        reservation.setArrivalDate(fromDate);
-        reservation.setDepartureDate(toDate);
-        reservation.setCreationDate(LocalDate.now(LocalDateRange.UTC));
-        reservation.setUpdateDate(LocalDate.now(LocalDateRange.UTC));
+        Reservation reservation = Reservation.builder().
+                bookingUuid(UUID.randomUUID().toString()).
+                status(this.statusService.getReserved()).
+                user(islandUser).
+                spot(this.spotService.randomSpot()).
+                price(0).
+                arrivalDate(fromDate).
+                departureDate(toDate).
+                creationDate(LocalDate.now(LocalDateRange.UTC)).
+                updateDate(LocalDate.now(LocalDateRange.UTC)).
+                build();
 
         log.info("About to save reservation {}", reservation);
         this.reservationRepository.save(reservation);
 
-        ReservationResponseDto reservationResponseDto = new ReservationResponseDto();
-        reservationResponseDto.setBookingUuid(reservation.getBookingUuid());
-        return reservationResponseDto;
+        return ReservationResponseDto.builder().
+                bookingUuid(reservation.getBookingUuid()).
+                build();
     }
 
     @Override
@@ -113,6 +117,23 @@ public class DefaultReservationServiceImpl implements ReservationService {
                 stream().
                 map(this.modelDtoConverter::reservationEntityToReservationModel).
                 collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ReservationModel fetchReservationByBookingUuid(String bookingUuid) {
+        log.info("About to fetch reservation with booking id {}", bookingUuid);
+
+        Reservation reservation = this.reservationRepository.findByBookingUuid(bookingUuid);
+        if (null == reservation) {
+            log.info("Reservation with booikng id {} not found", bookingUuid);
+            throw new IslandApplicationException(
+                    messageSource.getMessage("island.exception.reservation.not.found", null, null,
+                            Locale.getDefault()));
+        }
+
+        log.info("Reservation with booikng id {} found [{}]", bookingUuid, reservation);
+        return this.modelDtoConverter.reservationEntityToReservationModel(reservation);
     }
 
 }

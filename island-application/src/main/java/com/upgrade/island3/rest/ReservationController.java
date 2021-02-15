@@ -39,7 +39,7 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @Operation(summary = "Provides an end point for reserving the campsite..",
+    @Operation(summary = "Provides an end point for reserving the campsite.",
             description = "Returns a unique booking identifier back to the caller if the reservation is successful.")
     @ApiResponse(responseCode = "200",
             description = "Returns a unique booking identifier back to the caller if the reservation is successful.",
@@ -57,7 +57,7 @@ public class ReservationController {
     @Operation(summary = "Provides an end point for fetching all existing campsite reservations.",
             description = "Returns a list of all existing campsite reservations.")
     @ApiResponse(responseCode = "200",
-            description = "Returns a list of all existing campsite reservations..",
+            description = "Returns a list of all existing campsite reservations.",
             content = @Content(schema = @Schema(implementation = ReservationModel.class)))
     @ApiResponse(responseCode = "400",
             description = "Invalid parameters.")
@@ -76,6 +76,30 @@ public class ReservationController {
         return ResponseEntity.
                 status(HttpStatus.OK).
                 body(reservationModelList);
+    }
+
+    @Operation(summary = "Provides an end point for fetching existing campsite reservation.",
+            description = "Returns existing campsite reservation by booking identifier.")
+    @ApiResponse(responseCode = "200",
+            description = "Returns existing campsite reservation by booking identifier.",
+            content = @Content(schema = @Schema(implementation = ReservationModel.class)))
+    @ApiResponse(responseCode = "400",
+            description = "Invalid parameters.")
+    @ApiResponse(responseCode = "404",
+            description = "Reservation not found.")
+    @GetMapping(path = "/{bookingUuid}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity getReservationsByBookingIdentifier(@Valid @PathVariable String bookingUuid) {
+        ReservationModel reservationModel = this.reservationService.fetchReservationByBookingUuid(bookingUuid);
+
+        if (null == reservationModel) {
+            return ResponseEntity.
+                    status(HttpStatus.NOT_FOUND).
+                    body("Reservation with booking identifier " + bookingUuid + " not found");
+        }
+
+        return ResponseEntity.
+                status(HttpStatus.OK).
+                body(reservationModel);
     }
 
 }

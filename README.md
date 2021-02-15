@@ -83,7 +83,9 @@ New terminal window
     availability of the campsite for a given date range with the default being 1 month.
  2. Provide an end point for reserving the campsite. The user will provide his/her email & full name at the time of reserving the campsite
     along with intended arrival date and departure date. Return a unique booking identifier back to the caller if the reservation is successful.
-    
+ 3. The unique booking identifier can be used to modify or cancel the reservation later on. Provide appropriate end point(s) to allow
+    modification/cancellation of an existing reservation    
+
 
  ## BestPractices implemented
  - SpringBoot 2.4.2  

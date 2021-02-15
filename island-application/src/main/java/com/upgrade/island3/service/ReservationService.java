@@ -14,5 +14,8 @@ import java.util.List;
  */
 public interface ReservationService {
     ReservationResponseDto makeReservation(ReservationRequestDto reservationUserDto);
+
     List<ReservationModel> fetchAllReservations();
+
+    ReservationModel fetchReservationByBookingUuid(String bookingUuid);
 }
