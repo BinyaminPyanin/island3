@@ -6,10 +6,7 @@ import com.upgrade.island3.converter.ReservationModel;
 import com.upgrade.island3.dto.request.ReservationRequestDto;
 import com.upgrade.island3.dto.response.ReservationResponseDto;
 import com.upgrade.island3.exception.IslandApplicationException;
-import com.upgrade.island3.model.IslandUser;
-import com.upgrade.island3.model.Reservation;
-import com.upgrade.island3.model.Status;
-import com.upgrade.island3.model.StatusReservation;
+import com.upgrade.island3.model.*;
 import com.upgrade.island3.repository.ReservationRepository;
 import com.upgrade.island3.utils.LocalDateRange;
 import lombok.extern.slf4j.Slf4j;
@@ -70,6 +67,17 @@ public class DefaultReservationServiceImpl implements ReservationService {
     public ReservationResponseDto makeReservation(ReservationRequestDto reservationRequest) {
         log.info("reservationRequest {}", reservationRequest);
 
+        LocalDate fromDate = reservationRequest.getRequestDates().getArrivalDate();
+        LocalDate toDate = reservationRequest.getRequestDates().getDepartureDate();
+
+        List<Availability> availableDates = this.availabilityService.findAvailability(fromDate,toDate);
+        if(availableDates.isEmpty()){
+            log.info("Unable to complete the reservation.No available dates between {} and {}" , fromDate ,toDate);
+            throw new IslandApplicationException(
+                    messageSource.getMessage("island.exception.reservation.no.available.dates", null, null,
+                            Locale.getDefault()));
+        }
+
         IslandUser islandUser = this.dtoToModelConverter.convertReservationRequestDtoToIslandUserEntity(
                 reservationRequest);
         this.islandUserService.save(islandUser);
@@ -87,6 +95,16 @@ public class DefaultReservationServiceImpl implements ReservationService {
                 bookingUuid(reservation.getBookingUuid()).
                 build();
     }
+
+
+
+
+
+
+
+
+
+
 
     @Override
     @Transactional(readOnly = true)
