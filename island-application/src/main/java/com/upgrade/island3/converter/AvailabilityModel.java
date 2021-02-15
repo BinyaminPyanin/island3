@@ -17,4 +17,5 @@ import java.time.LocalDate;
 @Builder
 public class AvailabilityModel {
     private LocalDate availableDate;
+    private StatusModel status;
 }

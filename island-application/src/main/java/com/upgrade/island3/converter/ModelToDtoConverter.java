@@ -15,6 +15,7 @@ public class ModelToDtoConverter {
     public AvailabilityModel availabilityEntityToAvailabilityModel(Availability availability) {
         return AvailabilityModel.builder().
                 availableDate(availability.getAvailableDate()).
+                status(statusEntityToStatusModel(availability.getStatus())).
                 build();
     }
 
@@ -49,6 +50,7 @@ public class ModelToDtoConverter {
         return SpotModel.builder().
                 name(spot.getName()).
                 description(spot.getDescription()).
+                status(statusEntityToStatusModel(spot.getStatus())).
                 build();
     }
 

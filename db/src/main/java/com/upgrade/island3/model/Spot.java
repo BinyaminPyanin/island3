@@ -30,6 +30,10 @@ public class Spot {
     @Column
     private String name;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "status_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "reservation_status_id_fkey"))
+    private Status status;
+
     @Column
     private String description;
 }

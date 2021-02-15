@@ -16,4 +16,5 @@ import lombok.*;
 public class SpotModel {
     private String name;
     private String description;
+    private StatusModel status;
 }
