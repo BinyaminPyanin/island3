@@ -10,6 +10,20 @@ insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Retrievers (Golden)
 
 --AVAILABILITY
 --March 2021 is available for booking
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-15',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-16',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-17',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-18',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-19',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-20',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-21',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-22',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-23',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-24',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-25',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-26',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-27',1);
+insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-02-28',1);
 insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-01',1);
 insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-02',1);
 insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-03',1);
@@ -25,19 +39,3 @@ insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-12',1
 insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-13',1);
 insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-14',1);
 insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-15',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-16',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-17',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-18',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-19',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-20',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-21',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-22',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-23',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-24',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-25',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-26',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-27',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-28',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-29',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-03-30',1);
-insert into public.AVAILABILITY(AVAILABLE_DATE,STATUS_ID) values ('2021-04-01',1);
