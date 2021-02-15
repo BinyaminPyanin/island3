@@ -35,19 +35,19 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<Availability> findAvailability(LocalDate fromDate, LocalDate toDate) {
         return getAvailability(fromDate, toDate);
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<Availability> findAvailability() {
         return getAllAvailabilities();
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<LocalDate> findAvailabilityDates(LocalDate fromDate, LocalDate toDate) {
         log.info("Fetching available dates for requested date range from [{}] to [{}]", fromDate, toDate);
 
@@ -60,7 +60,7 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<LocalDate> findAvailabilityDates() {
         log.info("Fetching all available dates");
 
