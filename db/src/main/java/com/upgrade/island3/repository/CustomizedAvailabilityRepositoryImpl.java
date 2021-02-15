@@ -22,6 +22,7 @@ public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabil
 
     private static final String GET_DATES_IN_RANGE_HQL = " from Availability where status=:status and availableDate between :fromDate and :toDate";
     private static final String GET_ALL_DATES_IN_RANGE_HQL = " from Availability";
+    private static final String GET_AVAILABILITY_BY_DATE_HQL = " from Availability where availableDate=:date";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -34,6 +35,15 @@ public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabil
     @Override
     public List<Availability> getAllAvailableDates() {
         return getAllAvailableDates(false);
+    }
+
+    @Override
+    public Availability findAvailabilityByDate(LocalDate localDate) {
+        Query query = this.entityManager.
+                createQuery(GET_AVAILABILITY_BY_DATE_HQL).
+                setParameter("date", localDate);
+
+        return (Availability) query.getResultList().get(0);
     }
 
     private Query buildDateRangeQuery(String sqlPrefix, LocalDate fromDate, LocalDate toDate, Status status) {

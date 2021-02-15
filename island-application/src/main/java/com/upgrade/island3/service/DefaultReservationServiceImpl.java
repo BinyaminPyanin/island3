@@ -32,7 +32,6 @@ import static org.springframework.transaction.annotation.Propagation.REQUIRED;
 @Service
 @Slf4j
 public class DefaultReservationServiceImpl implements ReservationService {
-
     private AvailabilityService availabilityService;
     private StatusService statusService;
     private IslandUserService islandUserService;
@@ -77,12 +76,15 @@ public class DefaultReservationServiceImpl implements ReservationService {
                     messageSource.getMessage("island.exception.reservation.no.available.dates", null, null,
                             Locale.getDefault()));
         }
+        Status reserved = this.statusService.getReserved();
+
+        availableDates.forEach(t -> t.setStatus(reserved));
+        this.availabilityService.saveAll(availableDates);
 
         IslandUser islandUser = this.dtoToModelConverter.convertReservationRequestDtoToIslandUserEntity(
                 reservationRequest);
         this.islandUserService.save(islandUser);
 
-        Status reserved = this.statusService.getReserved();
         Reservation reservation =
                 this.dtoToModelConverter.convertReservationRequestDtoToReservationEntity(
                         reservationRequest, islandUser, reserved, this.spotService.randomAvailableSpot());
@@ -95,7 +97,6 @@ public class DefaultReservationServiceImpl implements ReservationService {
                 bookingUuid(reservation.getBookingUuid()).
                 build();
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -136,9 +137,22 @@ public class DefaultReservationServiceImpl implements ReservationService {
         reservation.getSpot().setStatus(this.statusService.getAvailable());
         reservation.setStatus(this.statusService.getCanceled());
         reservation.setUpdateDate(LocalDate.now(LocalDateRange.UTC));
-        //TODO
-        //Make dates available again
-        //reservation.getReservedDates()
+
+        LocalDate fromDate = reservation.getArrivalDate();
+        LocalDate toDate = reservation.getDepartureDate();
+        List<Availability> availableDates = this.availabilityService.findAvailability(fromDate, toDate, this.statusService.getReserved());
+        if (availableDates.isEmpty()) {
+            log.info("Unable to cancel the reservation.No reserved dates between {} and {}", fromDate, toDate);
+            throw new IslandApplicationException(
+                    messageSource.getMessage("island.exception.reservation.no.resereved.dates", null, null,
+                            Locale.getDefault()));
+        }
+        Status available = this.statusService.getAvailable();
+
+        availableDates.forEach(t -> t.setStatus(available));
+        this.availabilityService.saveAll(availableDates);
+
+
 
         log.info("About to save canceled reservation {}", reservation);
         this.reservationRepository.save(reservation);

@@ -20,4 +20,8 @@ public interface AvailabilityService {
     List<LocalDate> findAvailabilityDates(LocalDate fromDate, LocalDate toDate);
 
     List<LocalDate> findAvailabilityDates();
+
+    void saveAll(List<Availability> availabilityList);
+
+    Availability findAvailabilityByDate(LocalDate localDate);
 }
