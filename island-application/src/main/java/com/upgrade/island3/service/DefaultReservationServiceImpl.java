@@ -1,8 +1,9 @@
 package com.upgrade.island3.service;
 
+import com.upgrade.island3.converter.ModelDtoConverter;
+import com.upgrade.island3.converter.ReservationModel;
 import com.upgrade.island3.dto.request.ReservationRequestDto;
 import com.upgrade.island3.dto.response.ReservationResponseDto;
-import com.upgrade.island3.model.Availability;
 import com.upgrade.island3.model.IslandUser;
 import com.upgrade.island3.model.Reservation;
 import com.upgrade.island3.repository.ReservationRepository;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.springframework.transaction.annotation.Propagation.REQUIRED;
 
@@ -35,6 +37,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
     private SpotService spotService;
     private ReservationRepository reservationRepository;
     private MessageSource messageSource;
+    private ModelDtoConverter modelDtoConverter;
 
     @Autowired
     public DefaultReservationServiceImpl(AvailabilityService availabilityService,
@@ -42,13 +45,16 @@ public class DefaultReservationServiceImpl implements ReservationService {
                                          IslandUserService islandUserService,
                                          SpotService spotService,
                                          ReservationRepository reservationRepository,
-                                         MessageSource messageSource) {
+                                         MessageSource messageSource,
+                                         ModelDtoConverter modelDtoConverter
+    ) {
         this.availabilityService = availabilityService;
         this.statusService = statusService;
         this.islandUserService = islandUserService;
         this.spotService = spotService;
         this.reservationRepository = reservationRepository;
         this.messageSource = messageSource;
+        this.modelDtoConverter = modelDtoConverter;
     }
 
     @Override
@@ -59,9 +65,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
         LocalDate fromDate = reservationRequest.getRequestDates().getArrivalDate();
         LocalDate toDate = reservationRequest.getRequestDates().getDepartureDate();
 
-        //TODO rewrite call DB
-        List<Availability> listOfAvailabilities =
-                this.availabilityService.findAvailability(fromDate, toDate);
+        //List<Availability> listOfAvailabilities = this.availabilityService.findAvailability(fromDate, toDate);
 
         //TODO validate reservation can be made
 //        if (site is full) {
@@ -95,6 +99,20 @@ public class DefaultReservationServiceImpl implements ReservationService {
         ReservationResponseDto reservationResponseDto = new ReservationResponseDto();
         reservationResponseDto.setBookingUuid(reservation.getBookingUuid());
         return reservationResponseDto;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ReservationModel> fetchAllReservations() {
+        log.info("About to fetch all reservations");
+
+        List<Reservation> listOfReservations = this.reservationRepository.findAll();
+        log.info("All Reservation : {}", listOfReservations.stream().map(Object::toString).collect(Collectors.joining(",")));
+
+        return listOfReservations.
+                stream().
+                map(this.modelDtoConverter::reservationEntityToReservationModel).
+                collect(Collectors.toList());
     }
 
 }

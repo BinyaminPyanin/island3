@@ -1,5 +1,6 @@
 package com.upgrade.island3.rest;
 
+import com.upgrade.island3.converter.ReservationModel;
 import com.upgrade.island3.dto.request.ReservationRequestDto;
 import com.upgrade.island3.dto.response.ReservationResponseDto;
 import com.upgrade.island3.service.ReservationService;
@@ -10,12 +11,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -38,10 +39,10 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @Operation(summary = "Provide an end point for reserving the campsite..",
-            description = "Return a unique booking identifier back to the caller if the reservation is successful.")
+    @Operation(summary = "Provides an end point for reserving the campsite..",
+            description = "Returns a unique booking identifier back to the caller if the reservation is successful.")
     @ApiResponse(responseCode = "200",
-            description = "Return a unique booking identifier back to the caller if the reservation is successful.",
+            description = "Returns a unique booking identifier back to the caller if the reservation is successful.",
             content = @Content(schema = @Schema(implementation = ReservationResponseDto.class)))
     @ApiResponse(responseCode = "400",
             description = "Invalid parameters.")
@@ -51,6 +52,30 @@ public class ReservationController {
     public ReservationResponseDto makeReservation(@Valid @RequestBody ReservationRequestDto reservationRequest
     ) {
         return this.reservationService.makeReservation(reservationRequest);
+    }
+
+    @Operation(summary = "Provides an end point for fetching all existing campsite reservations.",
+            description = "Returns a list of all existing campsite reservations.")
+    @ApiResponse(responseCode = "200",
+            description = "Returns a list of all existing campsite reservations..",
+            content = @Content(schema = @Schema(implementation = ReservationModel.class)))
+    @ApiResponse(responseCode = "400",
+            description = "Invalid parameters.")
+    @ApiResponse(responseCode = "404",
+            description = "Empty list of reservations.")
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity fetchAllExistingReservations() {
+        List<ReservationModel> reservationModelList = this.reservationService.fetchAllReservations();
+
+        if (reservationModelList.isEmpty()) {
+            return ResponseEntity.
+                    status(HttpStatus.NOT_FOUND).
+                    body("Empty list of reservations.");
+        }
+
+        return ResponseEntity.
+                status(HttpStatus.OK).
+                body(reservationModelList);
     }
 
 }

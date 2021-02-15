@@ -10,4 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @since 20210214
  */
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
+    Reservation findByBookingUuid(String bookingUuid);
 }

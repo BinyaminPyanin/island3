@@ -52,7 +52,11 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
         log.info("Fetching available dates for requested date range from [{}] to [{}]", fromDate, toDate);
 
         List<Availability> listOfAvailabilities = getAvailability(fromDate, toDate);
-        return listOfAvailabilities.stream().map(Availability::getAvailableDate).collect(Collectors.toList());
+
+        return listOfAvailabilities.
+                stream().
+                map(Availability::getAvailableDate).
+                collect(Collectors.toList());
     }
 
     @Override
@@ -70,7 +74,10 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
         List<Availability> listOfAvailabilities = availabilityRepository.getAvailableDatesByRange(fromDate, toDate);
         log.info("Availabilities for requested date range from [{}] to [{}] : {}",
                 fromDate, toDate,
-                listOfAvailabilities.stream().map(Object::toString).collect(Collectors.joining(",")));
+                listOfAvailabilities.
+                        stream().
+                        map(Object::toString).
+                        collect(Collectors.joining(",")));
 
         if (listOfAvailabilities.isEmpty()) {
             return Collections.emptyList();

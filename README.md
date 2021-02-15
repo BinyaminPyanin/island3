@@ -77,13 +77,6 @@ New terminal window
 `http://localhost:8080/info`
 
 
-### 3rd party libraries used
-```Lombock``` 
-`https://projectlombok.org/`
-
-```Vavr``` 
-`https://www.vavr.io/`
-
 ## Constraints implemented
  1. The users will need to find out when the campsite is available. 
     So the system should expose an API to provide information of the
@@ -92,8 +85,25 @@ New terminal window
     along with intended arrival date and departure date. Return a unique booking identifier back to the caller if the reservation is successful.
     
 
+ ## BestPractices implemented
+ - SpringBoot 2.4.2  
+ - Java 1.8
+ - Swagger/OpenAPI
+ - Lombok 
+ - Actuators
+ - Exception Handler
+ - Convertors Entity to Dto
+ - Docker
+ - Git
+ - Messages
+ - Validators
+ - Maven wrapper
+ - Postgres DB
+ - Flyway migration
+ 
+ 
  ## Testing
- Request body json example:
+ Reservation request body json example:
  ```
 {
         "firstName": "D",
