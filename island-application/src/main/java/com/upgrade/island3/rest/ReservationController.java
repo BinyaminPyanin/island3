@@ -102,4 +102,22 @@ public class ReservationController {
                 body(reservationModel);
     }
 
+    @Operation(summary = "Provides an end point for canceling existing campsite reservation.",
+            description = "Cancels existing campsite reservation by booking identifier.")
+    @ApiResponse(responseCode = "200",
+            description = "Cancels existing campsite reservation by booking identifier.",
+            content = @Content(schema = @Schema(implementation = ReservationModel.class)))
+    @ApiResponse(responseCode = "400",
+            description = "Invalid parameters.")
+    @ApiResponse(responseCode = "204",
+            description = "No content.")
+    @DeleteMapping(path = "/{bookingUuid}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity cancelReservationsByBookingIdentifier(@Valid @PathVariable String bookingUuid) {
+        this.reservationService.cancelReservation(bookingUuid);
+
+        return ResponseEntity.
+                status(HttpStatus.NO_CONTENT).
+                body(bookingUuid);
+    }
+
 }

@@ -7,6 +7,7 @@ import com.upgrade.island3.dto.response.ReservationResponseDto;
 import com.upgrade.island3.exception.IslandApplicationException;
 import com.upgrade.island3.model.IslandUser;
 import com.upgrade.island3.model.Reservation;
+import com.upgrade.island3.model.StatusReservation;
 import com.upgrade.island3.repository.ReservationRepository;
 import com.upgrade.island3.utils.LocalDateRange;
 import lombok.extern.slf4j.Slf4j;
@@ -111,7 +112,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
         log.info("About to fetch all reservations");
 
         List<Reservation> listOfReservations = this.reservationRepository.findAll();
-        log.info("All Reservation : {}", listOfReservations.stream().map(Object::toString).collect(Collectors.joining(",")));
+        log.info("All Reservations : {}", listOfReservations.stream().map(Object::toString).collect(Collectors.joining(",")));
 
         return listOfReservations.
                 stream().
@@ -134,6 +135,37 @@ public class DefaultReservationServiceImpl implements ReservationService {
 
         log.info("Reservation with booikng id {} found [{}]", bookingUuid, reservation);
         return this.modelDtoConverter.reservationEntityToReservationModel(reservation);
+    }
+
+    @Override
+    @Transactional
+    public void cancelReservation(String bookingUuid) {
+        log.info("About to cancel reservation with booking id {}", bookingUuid);
+
+        Reservation reservation = this.reservationRepository.findByBookingUuid(bookingUuid);
+        if (null == reservation) {
+            log.info("Reservation with booikng id {} not found", bookingUuid);
+            throw new IslandApplicationException(
+                    messageSource.getMessage("island.exception.reservation.not.found", null, null,
+                            Locale.getDefault()));
+        }
+
+        log.info("Reservation with booikng id {} found [{}]", bookingUuid, reservation);
+
+        if(reservation.getStatus().getCode().equals(StatusReservation.CANCELED.name())){
+            log.info("Reservation with booikng id {} already canceled", bookingUuid);
+            throw new IslandApplicationException(
+                    messageSource.getMessage("island.exception.reservation.canceled", null, null,
+                            Locale.getDefault()));
+        }
+
+        reservation.setStatus(this.statusService.getCanceled());
+        reservation.setUpdateDate(LocalDate.now(LocalDateRange.UTC));
+        //Make dates available again
+        //reservation.getReservedDates()
+
+        log.info("About to save canceled reservation {}", reservation);
+        this.reservationRepository.save(reservation);
     }
 
 }

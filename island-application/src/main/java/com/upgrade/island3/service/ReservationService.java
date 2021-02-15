@@ -18,4 +18,6 @@ public interface ReservationService {
     List<ReservationModel> fetchAllReservations();
 
     ReservationModel fetchReservationByBookingUuid(String bookingUuid);
+
+    void cancelReservation(String bookingUuid);
 }
