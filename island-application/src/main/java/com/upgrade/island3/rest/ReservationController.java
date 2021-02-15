@@ -4,6 +4,7 @@ import com.upgrade.island3.converter.ReservationModel;
 import com.upgrade.island3.dto.request.ReservationRequestDto;
 import com.upgrade.island3.dto.response.ReservationResponseDto;
 import com.upgrade.island3.service.ReservationService;
+import com.upgrade.island3.validation.InputParametersValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,10 +34,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ReservationController {
 
     private ReservationService reservationService;
+    private InputParametersValidator inputParametersValidator;
 
     @Autowired
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(ReservationService reservationService,
+                                 InputParametersValidator inputParametersValidator) {
         this.reservationService = reservationService;
+        this.inputParametersValidator = inputParametersValidator;
     }
 
     @Operation(summary = "Provides an end point for reserving the campsite.",
@@ -49,8 +53,10 @@ public class ReservationController {
     @ApiResponse(responseCode = "404",
             description = "Unable to make the reservation.")
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ReservationResponseDto makeReservation(@Valid @RequestBody ReservationRequestDto reservationRequest
+    public ReservationResponseDto makeReservation(@RequestBody ReservationRequestDto reservationRequest
     ) {
+        this.inputParametersValidator.validateRequestDates(reservationRequest.getRequestDates());
+
         return this.reservationService.makeReservation(reservationRequest);
     }
 
@@ -132,7 +138,10 @@ public class ReservationController {
     @PutMapping(path = "/{bookingUuid}", produces = APPLICATION_JSON_VALUE)
     public ReservationResponseDto modifyReservation(
             @Valid @PathVariable String bookingUuid,
-            @Valid @RequestBody ReservationRequestDto reservationRequest) {
+            @RequestBody ReservationRequestDto reservationRequest) {
+
+        this.inputParametersValidator.validateRequestDates(reservationRequest.getRequestDates());
+
         return this.reservationService.modifyReservation(reservationRequest, bookingUuid);
     }
 

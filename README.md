@@ -78,6 +78,13 @@ New terminal window
 
 
 ## Constraints implemented
+ 1. To streamline the reservations a few constraints need to be in place -
+ 2. The campsite will be free for all.
+ 3. The campsite can be reserved for max 3 days.
+ 4. The campsite can be reserved minimum 1 day(s) ahead of arrival and up to 1 month in advance.
+ 5. Reservations can be cancelled anytime.
+ 
+## System requirements implemented
  1. The users will need to find out when the campsite is available. 
     So the system should expose an API to provide information of the
     availability of the campsite for a given date range with the default being 1 month.
