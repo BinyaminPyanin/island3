@@ -1,6 +1,7 @@
 package com.upgrade.island3.repository;
 
 import com.upgrade.island3.model.Availability;
+import com.upgrade.island3.model.Status;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -19,15 +20,15 @@ import java.util.List;
 @Repository
 public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabilityRepository {
 
-    private static final String GET_DATES_IN_RANGE_HQL = " from Availability where availableDate between :fromDate and :toDate";
+    private static final String GET_DATES_IN_RANGE_HQL = " from Availability where status=:status and availableDate between :fromDate and :toDate";
     private static final String GET_ALL_DATES_IN_RANGE_HQL = " from Availability";
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public List<Availability> getAvailableDatesByRange(LocalDate fromDate, LocalDate toDate) {
-        return getAvailableDatesByRange(fromDate, toDate, true);
+    public List<Availability> getAvailableDatesByRange(LocalDate fromDate, LocalDate toDate, Status status) {
+        return getAvailableDatesByRange(fromDate, toDate, status, true);
     }
 
     @Override
@@ -35,15 +36,16 @@ public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabil
         return getAllAvailableDates(false);
     }
 
-    private Query buildDateRangeQuery(String sqlPrefix, LocalDate fromDate, LocalDate toDate) {
+    private Query buildDateRangeQuery(String sqlPrefix, LocalDate fromDate, LocalDate toDate, Status status) {
         return this.entityManager.
                 createQuery(sqlPrefix).
+                setParameter("status", status).
                 setParameter("fromDate", fromDate).
                 setParameter("toDate", toDate);
     }
 
-    private List<Availability> getAvailableDatesByRange(LocalDate fromDate, LocalDate toDate, boolean isLocked) {
-        Query query = buildDateRangeQuery(GET_DATES_IN_RANGE_HQL, fromDate, toDate);
+    private List<Availability> getAvailableDatesByRange(LocalDate fromDate, LocalDate toDate, Status status, boolean isLocked) {
+        Query query = buildDateRangeQuery(GET_DATES_IN_RANGE_HQL, fromDate, toDate, status);
 
         if (isLocked) {
             query.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);

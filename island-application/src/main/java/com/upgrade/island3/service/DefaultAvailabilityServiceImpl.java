@@ -1,6 +1,7 @@
 package com.upgrade.island3.service;
 
 import com.upgrade.island3.model.Availability;
+import com.upgrade.island3.model.Status;
 import com.upgrade.island3.repository.AvailabilityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,20 +25,23 @@ import java.util.stream.Collectors;
 public class DefaultAvailabilityServiceImpl implements AvailabilityService {
 
     private AvailabilityRepository availabilityRepository;
+    private StatusService statusService;
 
     //TODO why?
     @Value("${availability.default.date.range.days:31}")
     private int defaultDateRangeDays;
 
     @Autowired
-    public DefaultAvailabilityServiceImpl(AvailabilityRepository availabilityRepository) {
+    public DefaultAvailabilityServiceImpl(AvailabilityRepository availabilityRepository,
+                                          StatusService statusService) {
         this.availabilityRepository = availabilityRepository;
+        this.statusService = statusService;
     }
 
     @Override
     @Transactional
-    public List<Availability> findAvailability(LocalDate fromDate, LocalDate toDate) {
-        return getAvailability(fromDate, toDate);
+    public List<Availability> findAvailability(LocalDate fromDate, LocalDate toDate, Status status) {
+        return getAvailability(fromDate, toDate, status);
     }
 
     @Override
@@ -51,7 +55,7 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
     public List<LocalDate> findAvailabilityDates(LocalDate fromDate, LocalDate toDate) {
         log.info("Fetching available dates for requested date range from [{}] to [{}]", fromDate, toDate);
 
-        List<Availability> listOfAvailabilities = getAvailability(fromDate, toDate);
+        List<Availability> listOfAvailabilities = getAvailability(fromDate, toDate, this.statusService.getAvailable());
 
         return listOfAvailabilities.
                 stream().
@@ -68,10 +72,10 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
         return listOfAvailabilities.stream().map(Availability::getAvailableDate).collect(Collectors.toList());
     }
 
-    private List<Availability> getAvailability(LocalDate fromDate, LocalDate toDate) {
+    private List<Availability> getAvailability(LocalDate fromDate, LocalDate toDate, Status status) {
         log.info("Fetching availabilities for requested date range from [{}] to [{}]", fromDate, toDate);
 
-        List<Availability> listOfAvailabilities = availabilityRepository.getAvailableDatesByRange(fromDate, toDate);
+        List<Availability> listOfAvailabilities = availabilityRepository.getAvailableDatesByRange(fromDate, toDate, status);
         log.info("Availabilities for requested date range from [{}] to [{}] : {}",
                 fromDate, toDate,
                 listOfAvailabilities.

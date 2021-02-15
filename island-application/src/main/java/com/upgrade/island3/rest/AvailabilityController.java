@@ -65,24 +65,24 @@ public class AvailabilityController {
             return localDateRange.getError().get();
         }
 
-        List<LocalDate> listOfAvailabilities;
+        List<LocalDate> listOfAvailableDates;
         if (null == fromDate && null == toDate) {
-            listOfAvailabilities =
+            listOfAvailableDates =
                     availabilityService.findAvailabilityDates();
         } else {
-            listOfAvailabilities =
+            listOfAvailableDates =
                     availabilityService.findAvailabilityDates(localDateRange.getFromDate(), localDateRange.getToDate());
         }
 
-        if (listOfAvailabilities.isEmpty()) {
+        if (listOfAvailableDates.isEmpty()) {
             return ResponseEntity.
                     status(HttpStatus.NOT_FOUND).
-                    body("Empty list of availabilities.");
+                    body("Empty list of available dates.");
         }
 
         return ResponseEntity.
                 status(HttpStatus.OK).
-                body(listOfAvailabilities);
+                body(listOfAvailableDates);
     }
 
 }

@@ -70,9 +70,9 @@ public class DefaultReservationServiceImpl implements ReservationService {
         LocalDate fromDate = reservationRequest.getRequestDates().getArrivalDate();
         LocalDate toDate = reservationRequest.getRequestDates().getDepartureDate();
 
-        List<Availability> availableDates = this.availabilityService.findAvailability(fromDate,toDate);
-        if(availableDates.isEmpty()){
-            log.info("Unable to complete the reservation.No available dates between {} and {}" , fromDate ,toDate);
+        List<Availability> availableDates = this.availabilityService.findAvailability(fromDate, toDate, this.statusService.getAvailable());
+        if (availableDates.isEmpty()) {
+            log.info("Unable to complete the reservation.No available dates between {} and {}", fromDate, toDate);
             throw new IslandApplicationException(
                     messageSource.getMessage("island.exception.reservation.no.available.dates", null, null,
                             Locale.getDefault()));
@@ -95,15 +95,6 @@ public class DefaultReservationServiceImpl implements ReservationService {
                 bookingUuid(reservation.getBookingUuid()).
                 build();
     }
-
-
-
-
-
-
-
-
-
 
 
     @Override
