@@ -4,13 +4,13 @@ import com.upgrade.island3.model.*;
 import org.springframework.stereotype.Component;
 
 /**
- * ModelDtoConverter
+ * ModelToDtoConverter
  *
  * @author Binyamin Pyanin
  * @since 20210214
  */
 @Component
-public class ModelDtoConverter {
+public class ModelToDtoConverter {
 
     public AvailabilityModel availabilityEntityToAvailabilityModel(Availability availability) {
         return AvailabilityModel.builder().

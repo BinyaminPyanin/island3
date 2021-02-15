@@ -10,6 +10,12 @@ import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * CustomizedAvailabilityRepositoryImpl
+ *
+ * @author Binyamin Pyanin
+ * @since 20210215
+ */
 @Repository
 public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabilityRepository {
 
@@ -21,7 +27,7 @@ public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabil
 
     @Override
     public List<Availability> getAvailableDatesByRange(LocalDate fromDate, LocalDate toDate) {
-        return getAvailableDatesByRange(fromDate, toDate, false);
+        return getAvailableDatesByRange(fromDate, toDate, true);
     }
 
     @Override

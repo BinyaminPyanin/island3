@@ -25,6 +25,12 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * AvailabilityController
+ *
+ * @author Binyamin Pyanin
+ * @since 20210212
+ */
 @RestController
 @RequestMapping(path = "availability")
 @ConditionalOnProperty(value = "island.availabilities.endpoint.enabled", havingValue = "true")

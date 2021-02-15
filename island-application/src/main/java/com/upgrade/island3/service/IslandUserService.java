@@ -10,4 +10,6 @@ import com.upgrade.island3.model.IslandUser;
  */
 public interface IslandUserService {
     void save(IslandUser islandUser);
+
+    void delete(IslandUser islandUser);
 }
