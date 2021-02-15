@@ -6,7 +6,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: island_camping14
+      POSTGRES_DB: island_camping17
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
       

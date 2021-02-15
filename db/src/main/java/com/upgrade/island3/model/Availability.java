@@ -26,6 +26,10 @@ public class Availability {
     @Column(nullable = false, unique = true)
     private LocalDate availableDate;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "status_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "reservation_status_id_fkey"))
+    private Status status;
+
     @OneToMany(mappedBy = "availability", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ReservedDate> reservedDates;
 }
