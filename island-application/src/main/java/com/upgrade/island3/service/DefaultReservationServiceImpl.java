@@ -8,6 +8,7 @@ import com.upgrade.island3.dto.response.ReservationResponseDto;
 import com.upgrade.island3.exception.IslandApplicationException;
 import com.upgrade.island3.model.IslandUser;
 import com.upgrade.island3.model.Reservation;
+import com.upgrade.island3.model.Status;
 import com.upgrade.island3.model.StatusReservation;
 import com.upgrade.island3.repository.ReservationRepository;
 import com.upgrade.island3.utils.LocalDateRange;
@@ -73,9 +74,11 @@ public class DefaultReservationServiceImpl implements ReservationService {
                 reservationRequest);
         this.islandUserService.save(islandUser);
 
+        Status reserved = this.statusService.getReserved();
         Reservation reservation =
                 this.dtoToModelConverter.convertReservationRequestDtoToReservationEntity(
-                        reservationRequest, islandUser, this.statusService.getReserved(), this.spotService.randomSpot());
+                        reservationRequest, islandUser, reserved, this.spotService.randomAvailableSpot());
+        reservation.getSpot().setStatus(reserved);
 
         log.info("About to save reservation {}", reservation);
         this.reservationRepository.save(reservation);
@@ -84,6 +87,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
                 bookingUuid(reservation.getBookingUuid()).
                 build();
     }
+
 
     @Override
     @Transactional(readOnly = true)

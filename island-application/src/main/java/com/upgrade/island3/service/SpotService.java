@@ -10,5 +10,10 @@ import com.upgrade.island3.model.Spot;
  */
 public interface SpotService {
     long countAll();
+
+    long countAvailable();
+
     Spot randomSpot();
+
+    Spot randomAvailableSpot();
 }
