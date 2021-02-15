@@ -3,6 +3,12 @@ package com.upgrade.island3.converter;
 import com.upgrade.island3.model.*;
 import org.springframework.stereotype.Component;
 
+/**
+ * ModelDtoConverter
+ *
+ * @author Binyamin Pyanin
+ * @since 20210214
+ */
 @Component
 public class ModelDtoConverter {
 

@@ -20,4 +20,6 @@ public interface ReservationService {
     ReservationModel fetchReservationByBookingUuid(String bookingUuid);
 
     void cancelReservation(String bookingUuid);
+
+    ReservationResponseDto modifyReservation(ReservationRequestDto reservationRequestDto, String bookingUuid);
 }

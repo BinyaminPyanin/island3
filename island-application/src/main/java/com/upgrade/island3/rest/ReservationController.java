@@ -120,4 +120,20 @@ public class ReservationController {
                 body(bookingUuid);
     }
 
+    @Operation(summary = "Provides an end point for modifying the campsite.",
+            description = "Returns a unique booking identifier back to the caller if the reservation modified ok.")
+    @ApiResponse(responseCode = "200",
+            description = "Returns a unique booking identifier back to the caller if the reservation modified ok.",
+            content = @Content(schema = @Schema(implementation = ReservationResponseDto.class)))
+    @ApiResponse(responseCode = "400",
+            description = "Invalid parameters.")
+    @ApiResponse(responseCode = "404",
+            description = "Unable to modify the reservation.")
+    @PutMapping(path = "/{bookingUuid}", produces = APPLICATION_JSON_VALUE)
+    public ReservationResponseDto modifyReservation(
+            @Valid @PathVariable String bookingUuid,
+            @Valid @RequestBody ReservationRequestDto reservationRequest) {
+        return this.reservationService.modifyReservation(reservationRequest, bookingUuid);
+    }
+
 }

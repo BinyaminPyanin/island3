@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -65,38 +66,11 @@ public class DefaultReservationServiceImpl implements ReservationService {
     public ReservationResponseDto makeReservation(ReservationRequestDto reservationRequest) {
         log.info("reservationRequest {}", reservationRequest);
 
-        LocalDate fromDate = reservationRequest.getRequestDates().getArrivalDate();
-        LocalDate toDate = reservationRequest.getRequestDates().getDepartureDate();
-
-        //List<Availability> listOfAvailabilities = this.availabilityService.findAvailability(fromDate, toDate);
-
-        //TODO validate reservation can be made
-//        if (site is full) {
-//
-//            log.info("Unable to make the reservation.Camping is full");
-//            throw new IslandApplicationException(
-//                    messageSource.getMessage("island.exception.camping.full", null, null, Locale.getDefault())
-//            );
-//        }
-
-        IslandUser islandUser = IslandUser.builder().
-                firstName(reservationRequest.getFirstName()).
-                lastName(reservationRequest.getLastName()).
-                email(reservationRequest.getEmail()).
-                build();
+        IslandUser islandUser = convertReservationRequestDtoToIslandUserEntity(reservationRequest);
         this.islandUserService.save(islandUser);
 
-        Reservation reservation = Reservation.builder().
-                bookingUuid(UUID.randomUUID().toString()).
-                status(this.statusService.getReserved()).
-                user(islandUser).
-                spot(this.spotService.randomSpot()).
-                price(0).
-                arrivalDate(fromDate).
-                departureDate(toDate).
-                creationDate(LocalDate.now(LocalDateRange.UTC)).
-                updateDate(LocalDate.now(LocalDateRange.UTC)).
-                build();
+        Reservation reservation =
+                convertReservationRequestDtoToReservationEntity(reservationRequest,islandUser);
 
         log.info("About to save reservation {}", reservation);
         this.reservationRepository.save(reservation);
@@ -112,7 +86,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
         log.info("About to fetch all reservations");
 
         List<Reservation> listOfReservations = this.reservationRepository.findAll();
-        log.info("All Reservations : {}", listOfReservations.stream().map(Object::toString).collect(Collectors.joining(",")));
+        log.info("All reservations : {}", listOfReservations.stream().map(Object::toString).collect(Collectors.joining(",")));
 
         return listOfReservations.
                 stream().
@@ -123,36 +97,19 @@ public class DefaultReservationServiceImpl implements ReservationService {
     @Override
     @Transactional(readOnly = true)
     public ReservationModel fetchReservationByBookingUuid(String bookingUuid) {
-        log.info("About to fetch reservation with booking id {}", bookingUuid);
+        Reservation reservation = fetchReservation(bookingUuid);
 
-        Reservation reservation = this.reservationRepository.findByBookingUuid(bookingUuid);
-        if (null == reservation) {
-            log.info("Reservation with booikng id {} not found", bookingUuid);
-            throw new IslandApplicationException(
-                    messageSource.getMessage("island.exception.reservation.not.found", null, null,
-                            Locale.getDefault()));
-        }
-
-        log.info("Reservation with booikng id {} found [{}]", bookingUuid, reservation);
         return this.modelDtoConverter.reservationEntityToReservationModel(reservation);
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = REQUIRED, timeout = 5)
     public void cancelReservation(String bookingUuid) {
         log.info("About to cancel reservation with booking id {}", bookingUuid);
 
-        Reservation reservation = this.reservationRepository.findByBookingUuid(bookingUuid);
-        if (null == reservation) {
-            log.info("Reservation with booikng id {} not found", bookingUuid);
-            throw new IslandApplicationException(
-                    messageSource.getMessage("island.exception.reservation.not.found", null, null,
-                            Locale.getDefault()));
-        }
+        Reservation reservation = fetchReservation(bookingUuid);
 
-        log.info("Reservation with booikng id {} found [{}]", bookingUuid, reservation);
-
-        if(reservation.getStatus().getCode().equals(StatusReservation.CANCELED.name())){
+        if (reservation.getStatus().getCode().equals(StatusReservation.CANCELED.name())) {
             log.info("Reservation with booikng id {} already canceled", bookingUuid);
             throw new IslandApplicationException(
                     messageSource.getMessage("island.exception.reservation.canceled", null, null,
@@ -166,6 +123,64 @@ public class DefaultReservationServiceImpl implements ReservationService {
 
         log.info("About to save canceled reservation {}", reservation);
         this.reservationRepository.save(reservation);
+    }
+
+    @Override
+    @Transactional(propagation = REQUIRED, timeout = 5)
+    public ReservationResponseDto modifyReservation(ReservationRequestDto reservationRequestDto, String bookingUuid) {
+        log.info("About to modify reservation with booking id {} with {}", bookingUuid, reservationRequestDto);
+        Reservation reservation = fetchReservation(bookingUuid);
+
+        //TODO modify logic here
+        //update User
+
+        //update Reservation
+
+        return ReservationResponseDto.builder().
+                bookingUuid(reservation.getBookingUuid()).
+                build();
+    }
+
+    private Reservation fetchReservation(String bookingUuid) {
+        log.info("About to fetch reservation with booking id {}", bookingUuid);
+
+        Optional<Reservation> reservation =
+                Optional.ofNullable(this.reservationRepository.findByBookingUuid(bookingUuid));
+
+        if (!reservation.isPresent()) {
+            log.info("Reservation with booikng id {} not found", bookingUuid);
+            throw new IslandApplicationException(
+                    messageSource.getMessage("island.exception.reservation.not.found", null, null,
+                            Locale.getDefault()));
+        }
+
+        log.info("Reservation with booikng id {} found [{}]", bookingUuid, reservation);
+        return reservation.get();
+    }
+
+    private Reservation convertReservationRequestDtoToReservationEntity(ReservationRequestDto reservationRequest,IslandUser islandUser) {
+        LocalDate fromDate = reservationRequest.getRequestDates().getArrivalDate();
+        LocalDate toDate = reservationRequest.getRequestDates().getDepartureDate();
+
+        return Reservation.builder().
+                bookingUuid(UUID.randomUUID().toString()).
+                status(this.statusService.getReserved()).
+                user(islandUser).
+                spot(this.spotService.randomSpot()).
+                price(0).
+                arrivalDate(fromDate).
+                departureDate(toDate).
+                creationDate(LocalDate.now(LocalDateRange.UTC)).
+                updateDate(LocalDate.now(LocalDateRange.UTC)).
+                build();
+    }
+
+    private IslandUser convertReservationRequestDtoToIslandUserEntity(ReservationRequestDto reservationRequest) {
+        return IslandUser.builder().
+                firstName(reservationRequest.getFirstName()).
+                lastName(reservationRequest.getLastName()).
+                email(reservationRequest.getEmail()).
+                build();
     }
 
 }
