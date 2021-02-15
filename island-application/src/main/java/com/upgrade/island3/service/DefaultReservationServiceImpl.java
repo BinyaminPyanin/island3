@@ -88,7 +88,6 @@ public class DefaultReservationServiceImpl implements ReservationService {
                 build();
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public List<ReservationModel> fetchAllReservations() {
@@ -125,6 +124,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
                             Locale.getDefault()));
         }
 
+        reservation.getSpot().setStatus(this.statusService.getAvailable());
         reservation.setStatus(this.statusService.getCanceled());
         reservation.setUpdateDate(LocalDate.now(LocalDateRange.UTC));
         //TODO
