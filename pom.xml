@@ -30,6 +30,7 @@
         <lombok.version>1.18.18</lombok.version>
         <junit.jupiterversion>5.7.0</junit.jupiterversion>
         <httpclient.version>4.5.13</httpclient.version>
+        <testcontainers.version>1.15.1</testcontainers.version>
     </properties>
 
     <dependencies>

@@ -126,3 +126,7 @@ New terminal window
         
     }
 ```
+
+Integration test
+
+```./mvnw -Dtest=ReservationControllerIntegrationTest test -DfailIfNoTests=false```
