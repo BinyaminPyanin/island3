@@ -91,6 +91,10 @@ http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://s
  - JUnit
  - Integration Tests
  
+ ## Data Model
+ DataModel1.png
+ 
+ DataModel2.png
  
  ## Testing
  Reservation request body json example:
@@ -109,7 +113,9 @@ http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://s
 ```
 
 Integration test
-
+Due to  `maven-failsafe-plugin` both JUnit and Integration tests will be running by:
+ 
+```maven clean install```
 
 ## P.S.
 To generate Open API `openapi.yaml` file , uncomment :
@@ -127,3 +133,4 @@ To generate Open API `openapi.yaml` file , uncomment :
 New terminal window
 
 `./mvnw -Dtest=OpenApiSpecificationGeneration test -DfailIfNoTests=false`
+
