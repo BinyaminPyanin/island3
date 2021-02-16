@@ -51,25 +51,6 @@ http://localhost:8080/openapi/rapidoc/index.html using [RapiDoc](https://mrin9.g
 
 http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://swagger.io/tools/swagger-ui/)
 
-To generate Open API
-
-Uncomment 
-
-`<dependency>
-   <groupId>org.springdoc</groupId>
-   <artifactId>springdoc-openapi-ui</artifactId>
-   <version>1.5.2</version>
-</dependency>`
-
-`mvn clean install`
-
-`./mvnw spring-boot:run -pl island-application or via IntelliJ`
-
-New terminal window
-
-`./mvnw -Dtest=OpenApiSpecificationGeneration test -DfailIfNoTests=false`
-
-
 ### Health check
 `http://localhost:8080/health`
 
@@ -109,6 +90,8 @@ New terminal window
  - Maven wrapper
  - Postgres DB
  - Flyway migration
+ - JUnit
+ - Integration Tests
  
  
  ## Testing
@@ -130,3 +113,21 @@ New terminal window
 Integration test
 
 ```./mvnw -Dtest=ReservationControllerIntegrationTest test -DfailIfNoTests=false```
+
+
+## P.S.
+To generate Open API `openapi.yaml` file , uncomment :
+
+`<dependency>
+   <groupId>org.springdoc</groupId>
+   <artifactId>springdoc-openapi-ui</artifactId>
+   <version>1.5.2</version>
+</dependency>`
+
+`mvn clean install`
+
+`./mvnw spring-boot:run -pl island-application or via IntelliJ`
+
+New terminal window
+
+`./mvnw -Dtest=OpenApiSpecificationGeneration test -DfailIfNoTests=false`
