@@ -1,4 +1,4 @@
-package com.upgrade.island3.rest;
+package com.upgrade.island3.rest.it;
 
 import akka.stream.Materializer;
 import com.google.inject.Inject;
@@ -35,7 +35,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestPropertySource(
         properties = {
-                "island.spots.number=35"
+                "island.test.spots.number=35",
+                "island.test.threads.number=1024"
         }
 )
 @Slf4j
@@ -48,8 +49,11 @@ public class ReservationControllerConcurrentTestITCase extends AbstractIntegrati
     private static final String LOG_LINE_END = ">>>>>-----------CONCURRENT-----------TEST-----------END------------------------------------------------------------>>>>>";
     private static final String TEST_BOOKING_UUID = "96a1ce01-2542-4d1d-b1dc-dbaa96604e73";
 
-    @Value("${island.spots.number}")
+    @Value("${island.test.spots.number}")
     int spotsNumber;
+
+    @Value("${island.test.threads.number}")
+    int threadsNumber;
 
     @Autowired
     private ReservationService reservationService;
@@ -74,7 +78,7 @@ public class ReservationControllerConcurrentTestITCase extends AbstractIntegrati
         log.info("Running whenConcurrebtReservationOccursThenSystemCanGracefullyHandleConcurrentRequestsToReserveTheCampsite");
         Vector<CompletableFuture<Void>> threads = new Vector<>();
 
-        IntStream.range(1, 1024).forEach(i -> {
+        IntStream.range(1, threadsNumber).forEach(i -> {
             CompletableFuture<Void> thread =
                     CompletableFuture.runAsync(() -> {
                         webTestClient

@@ -1,4 +1,4 @@
-package com.upgrade.island3.rest;
+package com.upgrade.island3.rest.it;
 
 import com.upgrade.island3.converter.ReservationModel;
 import com.upgrade.island3.dto.response.ReservationResponseDto;
@@ -87,6 +87,4 @@ public class ReservationControllerTestITCase extends AbstractIntegrationTestITCa
         assertDoesNotThrow(() -> this.reservationService.fetchAllReservations());
         log.info(LOG_LINE_END);
     }
-
-
 }
