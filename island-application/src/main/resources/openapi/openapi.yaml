@@ -133,7 +133,8 @@ paths:
     get:
       tags:
       - "Reservations Operations"
-      summary: "Provides an end point for fetching all existing campsite reservations."
+      summary: "For Debug/Dev purposes only! Provides an end point for fetching all\
+        \ existing campsite reservations."
       description: "Returns a list of all existing campsite reservations."
       operationId: "fetchAllExistingReservations"
       responses:
@@ -143,12 +144,6 @@ paths:
             '*/*':
               schema:
                 type: "object"
-        "200":
-          description: "Returns a list of all existing campsite reservations."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ReservationModel"
         "400":
           description: "Invalid parameters."
           content:
@@ -161,6 +156,12 @@ paths:
             application/json:
               schema:
                 type: "string"
+        "200":
+          description: "Returns a list of all existing campsite reservations."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReservationModel"
     post:
       tags:
       - "Reservations Operations"
@@ -181,15 +182,15 @@ paths:
             '*/*':
               schema:
                 type: "object"
-        "400":
-          description: "Invalid parameters."
+        "200":
+          description: "Returns a unique booking identifier back to the caller if\
+            \ the reservation is successful."
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ReservationResponseDto"
-        "200":
-          description: "Returns a unique booking identifier back to the caller if\
-            \ the reservation is successful."
+        "400":
+          description: "Invalid parameters."
           content:
             application/json:
               schema:
@@ -237,6 +238,12 @@ paths:
             application/json:
               schema:
                 type: "string"
+        "404":
+          description: "No availabilities for the specified date range `fromDate`,`toDate`."
+          content:
+            application/json:
+              schema:
+                type: "string"
         "200":
           description: "Returns all the availabilities for the specified date range\
             \ `fromDate`,`toDate`."
@@ -247,12 +254,6 @@ paths:
                 items:
                   type: "string"
                   format: "uri"
-        "404":
-          description: "No availabilities for the specified date range `fromDate`,`toDate`."
-          content:
-            application/json:
-              schema:
-                type: "string"
   /appgitinfo:
     get:
       tags:
