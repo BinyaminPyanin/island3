@@ -24,7 +24,7 @@ import java.util.Properties;
  */
 @Slf4j
 @RestController
-@Tag(name = "System Git Information Operations.")
+@Tag(name = "System Git Information Operations")
 public class VersionController {
     private static final String GIT_COMMIT_ID = "git.commit.id";
     private static final String NOT_AVAILABLE = "NOT_AVAILABLE";

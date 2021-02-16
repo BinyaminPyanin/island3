@@ -35,18 +35,18 @@ paths:
             application/json:
               schema:
                 type: "string"
-        "200":
-          description: "Returns existing campsite reservation by booking identifier."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ReservationModel"
         "404":
           description: "Reservation not found."
           content:
             application/json:
               schema:
                 type: "string"
+        "200":
+          description: "Returns existing campsite reservation by booking identifier."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReservationModel"
     put:
       tags:
       - "Reservations Operations"
@@ -79,15 +79,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ReservationResponseDto"
-        "404":
-          description: "Unable to modify the reservation."
+        "200":
+          description: "Returns a unique booking identifier back to the caller if\
+            \ the reservation modified ok."
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ReservationResponseDto"
-        "200":
-          description: "Returns a unique booking identifier back to the caller if\
-            \ the reservation modified ok."
+        "404":
+          description: "Unable to modify the reservation."
           content:
             application/json:
               schema:
@@ -182,15 +182,15 @@ paths:
             '*/*':
               schema:
                 type: "object"
-        "200":
-          description: "Returns a unique booking identifier back to the caller if\
-            \ the reservation is successful."
+        "400":
+          description: "Invalid parameters."
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ReservationResponseDto"
-        "400":
-          description: "Invalid parameters."
+        "200":
+          description: "Returns a unique booking identifier back to the caller if\
+            \ the reservation is successful."
           content:
             application/json:
               schema:
@@ -257,7 +257,7 @@ paths:
   /appgitinfo:
     get:
       tags:
-      - "System Git Information Operations."
+      - "System Git Information Operations"
       summary: "Returns the system and git information"
       description: "Returns the system and git information for UpgradeIsland application."
       operationId: "appGitInfo"
@@ -277,7 +277,7 @@ paths:
   /:
     get:
       tags:
-      - "island-application-controller"
+      - "Island Application Operations"
       operationId: "index"
       responses:
         "500":
