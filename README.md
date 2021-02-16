@@ -113,7 +113,8 @@ http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://s
 ```
 
 Integration test
-Due to  `maven-failsafe-plugin` both JUnit and Integration tests will be running by:
+
+Due to  `maven-failsafe-plugin` , both JUnit and Integration tests will be executed by:
  
 ```maven clean install```
 

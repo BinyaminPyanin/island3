@@ -57,6 +57,9 @@ public class CustomizedAvailabilityRepositoryImpl implements CustomizedAvailabil
     private List<Availability> getAvailableDatesByRange(LocalDate fromDate, LocalDate toDate, Status status, boolean isLocked) {
         Query query = buildDateRangeQuery(GET_DATES_IN_RANGE_HQL, fromDate, toDate, status);
 
+        query.setHint("javax.persistence.lock.timeout", 2000);
+        query.setHint("javax.persistence.query.timeout", 2000);
+
         if (isLocked) {
             query.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);
         }
