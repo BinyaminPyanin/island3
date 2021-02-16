@@ -18,27 +18,12 @@ This project requires:
 
 The project includes a Maven wrapper. So no build tool needs to be installed.
 
-To build:
+To build and start the project locally:
 
-```./mvnw clean package```
-
-To run the project:
-- launch a Postgres docker instance: 
-
-```docker-compose up```
-
-- start the project: 
-
-```./mvnw spring-boot:run -pl island-application```
-
-To build the docker image run:
-
-```docker build --network=host -f docker/Dockerfile --tag island:latest .```
-
-Then to run that docker image run:
-
-```docker run -p 8080:8080 -t island:latest```
-
+1. ```docker-compose up```
+2. ```mvn clean install```
+3. ```./mvnw clean package```
+4. ```./mvnw spring-boot:run -pl island-application```
 
 
 ### Swagger/OpenAPI End Points
@@ -124,7 +109,7 @@ Due to  `maven-failsafe-plugin` , both JUnit and Integration tests will be execu
 ```maven clean install```
 
 ## P.S.
-To generate Open API `openapi.yaml` file , uncomment :
+ - To generate Open API `openapi.yaml` file , uncomment :
 
 `<dependency>
    <groupId>org.springdoc</groupId>
@@ -139,4 +124,13 @@ To generate Open API `openapi.yaml` file , uncomment :
 New terminal window
 
 `./mvnw -Dtest=OpenApiSpecificationGeneration test -DfailIfNoTests=false`
+
+
+ - To build the docker image run:
+
+```docker build --network=host -f docker/Dockerfile --tag island:latest .```
+
+ - Then to run that docker image run:
+
+```docker run -p 8080:8080 -t island:latest```
 
