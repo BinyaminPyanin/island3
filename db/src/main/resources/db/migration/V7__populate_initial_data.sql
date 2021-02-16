@@ -7,6 +7,38 @@ insert into public.STATUS(CODE,DESCRIPTION) values ('CANCELED','Resource is canc
 insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Retriever labrador','Retriever spot',1);
 insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('German Shepherd Dogs	spot','German Shepherd Dogs spot',1);
 insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Retrievers (Golden)','Retrievers (Golden)  spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('French Bulldogs','French Bulldogs spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Poodles','Poodles spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Beagles','Beagles spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Rottweilers','Rottweilers spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Pembroke Welsh Corgis','Pembroke Welsh Corgis spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Yorkshire Terriers','Yorkshire Terriers spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Australian Shepherds	spot','Australian Shepherds spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Boxers','Boxers spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Siberian Huskies	spot','Siberian Huskies spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Doberman Pinschers','Doberman Pinschers spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Shih Tzu	spot','Shih Tzu spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Boston Terriers','Boston Terriers spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Havanese	spot','Havanese spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Bernese Mountain','Bernese Mountain spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Pomeranians','Pomeranians spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Shetland Sheepdogs','Shetland Sheepdogs spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Brittanys','Brittanys spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Spaniels (English Springer)','Spaniels (English Springer) spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Spaniels (Cocker)','Spaniels (Cocker) spot spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Miniature American Shepherds	spot','Miniature American Shepherds spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Cane Corso','Cane Corso spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Pugs	spot','Pugs spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Mastiffs	spot','Mastiffs spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Border Collies','Border Collies spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Vizslas','Vizslas spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Chihuahuas','Chihuahuas spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Maltese','Maltese spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Basset Hounds','Basset Hounds spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Collies','Collies spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Weimaraners','Weimaraners spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Newfoundlands','Newfoundlands spot',1);
+insert into public.SPOT(NAME,DESCRIPTION,STATUS_ID) values ('Belgian Malinois','Belgian Malinois spot',1);
 
 --AVAILABILITY
 --March 2021 is available for booking

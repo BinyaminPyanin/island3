@@ -17,7 +17,7 @@ import java.time.LocalDate;
  */
 @Data
 @Builder
-@ReservationWithinOneMonth(message = "{island.validation.reservation.dates.within.one.month}")
+//@ReservationWithinOneMonth(message = "{island.validation.reservation.dates.within.one.month}")
 @ReservationLengthInDays(message = "{island.validation.reservation.dates.length.exceeded}")
 public class RequestDatesDto {
     @NotNull

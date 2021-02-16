@@ -101,15 +101,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
     @Override
     @Transactional(readOnly = true)
     public List<ReservationModel> fetchAllReservations() {
-        log.info("About to fetch all reservations");
-
-        List<Reservation> listOfReservations = this.reservationRepository.findAll();
-        log.info("All reservations : {}", listOfReservations.stream().map(Object::toString).collect(Collectors.joining(",")));
-
-        return listOfReservations.
-                stream().
-                map(this.modelDtoConverter::reservationEntityToReservationModel).
-                collect(Collectors.toList());
+        return fetchAllExistingReservations();
     }
 
     @Override
@@ -151,7 +143,6 @@ public class DefaultReservationServiceImpl implements ReservationService {
 
         availableDates.forEach(t -> t.setStatus(available));
         this.availabilityService.saveAll(availableDates);
-
 
 
         log.info("About to save canceled reservation {}", reservation);
@@ -219,6 +210,19 @@ public class DefaultReservationServiceImpl implements ReservationService {
                 build();
     }
 
+    @Override
+    @Transactional(propagation = REQUIRED, timeout = 5)
+    public void cancelAllReservations() {
+
+        List<ReservationModel> reservationModelList = fetchAllExistingReservations();
+        reservationModelList.forEach(t -> {
+                    if (!t.getStatus().getCode().equals(StatusReservation.CANCELED.name())) {
+                        cancelReservation(t.getBookingUuid());
+                    }
+                }
+        );
+    }
+
     private Reservation fetchReservation(String bookingUuid) {
         log.info("About to fetch reservation with booking id {}", bookingUuid);
 
@@ -236,4 +240,15 @@ public class DefaultReservationServiceImpl implements ReservationService {
         return reservation.get();
     }
 
+    private List<ReservationModel> fetchAllExistingReservations() {
+        log.info("About to fetch all reservations");
+
+        List<Reservation> listOfReservations = this.reservationRepository.findAll();
+        log.info("All reservations : {}", listOfReservations.stream().map(Object::toString).collect(Collectors.joining(",")));
+
+        return listOfReservations.
+                stream().
+                map(this.modelDtoConverter::reservationEntityToReservationModel).
+                collect(Collectors.toList());
+    }
 }

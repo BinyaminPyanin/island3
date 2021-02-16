@@ -22,4 +22,6 @@ public interface ReservationService {
     void cancelReservation(String bookingUuid);
 
     ReservationResponseDto modifyReservation(ReservationRequestDto reservationRequestDto, String bookingUuid);
+
+    void cancelAllReservations();
 }
