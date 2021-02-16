@@ -41,8 +41,6 @@ Then to run that docker image run:
 
 
 
-
-
 ### Swagger/OpenAPI End Points
 
 OpenAPI documentation can be accessed with the following endpoints:
@@ -111,8 +109,6 @@ http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://s
 ```
 
 Integration test
-
-```./mvnw -Dtest=ReservationControllerIntegrationTest test -DfailIfNoTests=false```
 
 
 ## P.S.

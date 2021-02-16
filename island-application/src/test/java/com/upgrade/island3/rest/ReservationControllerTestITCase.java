@@ -4,7 +4,7 @@ import com.upgrade.island3.converter.ReservationModel;
 import com.upgrade.island3.dto.response.ReservationResponseDto;
 import com.upgrade.island3.exception.IslandApplicationException;
 import com.upgrade.island3.service.ReservationService;
-import com.upgrade.island3.utils.AbstractIntegrationTest;
+import com.upgrade.island3.utils.AbstractIntegrationTestITCase;
 import com.upgrade.island3.utils.TestUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Slf4j
-public class ReservationControllerIntegrationTest extends AbstractIntegrationTest {
+public class ReservationControllerTestITCase extends AbstractIntegrationTestITCase {
 
     private static final String LOG_LINE_START = ">>>>>-----------INTEGRATION-----------TEST-----------START---------------------------------------------------------->>>>>";
     private static final String LOG_LINE_END = ">>>>>-----------INTEGRATION-----------TEST-----------END------------------------------------------------------------>>>>>";

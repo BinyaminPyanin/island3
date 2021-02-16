@@ -13,9 +13,9 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ContextConfiguration(initializers = AbstractIntegrationTest.DockerPostgreDataSourceInitializer.class)
+@ContextConfiguration(initializers = AbstractIntegrationTestITCase.DockerPostgreDataSourceInitializer.class)
 @Testcontainers
-public abstract class AbstractIntegrationTest {
+public abstract class AbstractIntegrationTestITCase {
 
     public static PostgreSQLContainer<?> postgreDBContainer =
             new PostgreSQLContainer<>("postgres:latest");
