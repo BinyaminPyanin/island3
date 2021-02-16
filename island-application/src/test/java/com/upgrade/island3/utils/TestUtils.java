@@ -42,13 +42,14 @@ public class TestUtils {
             reservedDates(Lists.emptyList()).
             build();
 
-    private static final List<Availability> availableDates = new ArrayList<>();
+    private static final List<Availability> availabilitiesList = new ArrayList<>();
+    private static final List<LocalDate> localDatesList = new ArrayList<>();
 
     private static final String firstName = "D1";
     private static final String lastName = "W1";
     private static final String email = "dim12345@yahoo.com";
-    private static final String arrivalDate = "2021-02-16";
-    private static final String departureDate = "2021-02-18";
+    public static final String arrivalDate = "2021-02-16";
+    public static final String departureDate = "2021-02-18";
 
     private static final RequestDatesDto REQUEST_DATES_DTO = RequestDatesDto.builder().
             arrivalDate(LocalDate.parse(arrivalDate)).
@@ -99,11 +100,18 @@ public class TestUtils {
             build();
 
     public static List<Availability> getAvailabilityList(){
-        availableDates.add(FEB_01_2021);
-        availableDates.add(FEB_02_2021);
-        availableDates.add(FEB_03_2021);
+        availabilitiesList.add(FEB_01_2021);
+        availabilitiesList.add(FEB_02_2021);
+        availabilitiesList.add(FEB_03_2021);
 
-        return availableDates;
+        return availabilitiesList;
+    }
+
+    public static List<LocalDate> getLocalDatesList(){
+        localDatesList.add(LocalDate.parse(arrivalDate));
+        localDatesList.add(LocalDate.parse(departureDate));
+
+        return localDatesList;
     }
 
     public static IslandUser getIslandUser(){return islandUser;};
