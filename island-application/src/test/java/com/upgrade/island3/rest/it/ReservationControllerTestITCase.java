@@ -2,7 +2,7 @@ package com.upgrade.island3.rest.it;
 
 import com.upgrade.island3.converter.ReservationModel;
 import com.upgrade.island3.dto.response.ReservationResponseDto;
-import com.upgrade.island3.exception.IslandApplicationException;
+import com.upgrade.island3.exception.ReservationException;
 import com.upgrade.island3.service.ReservationService;
 import com.upgrade.island3.utils.AbstractIntegrationTestITCase;
 import com.upgrade.island3.utils.TestUtils;
@@ -43,7 +43,7 @@ public class ReservationControllerTestITCase extends AbstractIntegrationTestITCa
         log.info(LOG_LINE_START);
         log.info("Running whenFetchReservationsByUuidMethodIsCalledWthNoReservationsInDbThenExceptionIsThrown");
 
-        Assertions.assertThrows(IslandApplicationException.class, () ->
+        Assertions.assertThrows(ReservationException.class, () ->
                 this.reservationService.fetchReservationByBookingUuid(TEST_BOOKING_UUID));
         log.info(LOG_LINE_END);
     }
@@ -54,7 +54,7 @@ public class ReservationControllerTestITCase extends AbstractIntegrationTestITCa
         log.info(LOG_LINE_START);
         log.info("Running whenFetchReservationsByUuidMethodIsCalledHavingNullWthNoReservationsInDbThenExceptionIsThrown");
 
-        Assertions.assertThrows(IslandApplicationException.class, () ->
+        Assertions.assertThrows(ReservationException.class, () ->
                 this.reservationService.fetchReservationByBookingUuid(null));
         log.info(LOG_LINE_END);
     }

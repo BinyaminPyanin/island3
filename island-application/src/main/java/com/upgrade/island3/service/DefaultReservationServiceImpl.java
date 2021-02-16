@@ -5,7 +5,7 @@ import com.upgrade.island3.converter.ModelToDtoConverter;
 import com.upgrade.island3.converter.ReservationModel;
 import com.upgrade.island3.dto.request.ReservationRequestDto;
 import com.upgrade.island3.dto.response.ReservationResponseDto;
-import com.upgrade.island3.exception.IslandApplicationException;
+import com.upgrade.island3.exception.ReservationException;
 import com.upgrade.island3.model.*;
 import com.upgrade.island3.repository.ReservationRepository;
 import com.upgrade.island3.utils.LocalDateRange;
@@ -72,7 +72,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
         List<Availability> availableDates = this.availabilityService.findAvailability(fromDate, toDate, this.statusService.getAvailable());
         if (availableDates.isEmpty()) {
             log.info("Unable to complete the reservation.No available dates between {} and {}", fromDate, toDate);
-            throw new IslandApplicationException(
+            throw new ReservationException(
                     messageSource.getMessage("island.exception.reservation.no.available.dates", null, null,
                             Locale.getDefault()));
         }
@@ -121,7 +121,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
 
         if (reservation.getStatus().getCode().equals(StatusReservation.CANCELED.name())) {
             log.info("Reservation with booikng id {} already canceled", bookingUuid);
-            throw new IslandApplicationException(
+            throw new ReservationException(
                     messageSource.getMessage("island.exception.reservation.canceled", null, null,
                             Locale.getDefault()));
         }
@@ -135,8 +135,8 @@ public class DefaultReservationServiceImpl implements ReservationService {
         List<Availability> availableDates = this.availabilityService.findAvailability(fromDate, toDate, this.statusService.getReserved());
         if (availableDates.isEmpty()) {
             log.info("Unable to cancel the reservation.No reserved dates between {} and {}", fromDate, toDate);
-            throw new IslandApplicationException(
-                    messageSource.getMessage("island.exception.reservation.no.resereved.dates", null, null,
+            throw new ReservationException(
+                    messageSource.getMessage("island.exception.reservation.no.reserved.dates", null, null,
                             Locale.getDefault()));
         }
         Status available = this.statusService.getAvailable();
@@ -157,7 +157,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
 
         if (reservation.getStatus().getCode().equals(StatusReservation.CANCELED.name())) {
             log.info("Cannot modify canceled reservation with booikng id {}", bookingUuid);
-            throw new IslandApplicationException(
+            throw new ReservationException(
                     messageSource.getMessage("island.exception.reservation.canceled", null, null,
                             Locale.getDefault()));
         }
@@ -199,7 +199,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
                 this.reservationRepository.save(reservation);
             } else {
                 log.info("Reservation dates identical");
-                throw new IslandApplicationException(
+                throw new ReservationException(
                         messageSource.getMessage("island.exception.reservation.identical.update", null, null,
                                 Locale.getDefault()));
             }
@@ -231,7 +231,7 @@ public class DefaultReservationServiceImpl implements ReservationService {
 
         if (!reservation.isPresent()) {
             log.info("Reservation with booikng id {} not found", bookingUuid);
-            throw new IslandApplicationException(
+            throw new ReservationException(
                     messageSource.getMessage("island.exception.reservation.not.found", null, null,
                             Locale.getDefault()));
         }

@@ -91,7 +91,7 @@ public class ReservationControllerConcurrentTestITCase extends AbstractIntegrati
                                 .expectStatus().value(oneOf(
                                 HttpStatus.OK.value(),
                                 HttpStatus.CONFLICT.value(),
-                                HttpStatus.BAD_REQUEST.value()
+                                HttpStatus.NOT_FOUND.value()
                         ))
                                 .expectBody(String.class)
                                 .consumeWith(t -> {

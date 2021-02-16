@@ -3,14 +3,13 @@ package com.upgrade.island3.service;
 import com.upgrade.island3.converter.DtoToModelConverter;
 import com.upgrade.island3.converter.ModelToDtoConverter;
 import com.upgrade.island3.dto.response.ReservationResponseDto;
-import com.upgrade.island3.exception.IslandApplicationException;
+import com.upgrade.island3.exception.ReservationException;
 import com.upgrade.island3.model.Reservation;
 import com.upgrade.island3.repository.ReservationRepository;
 import com.upgrade.island3.utils.TestUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,8 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.MessageSource;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -86,7 +83,7 @@ public class DefaultReservationServiceImplTest {
     void whenNoAvailableDatesForReservationThenExceptionIsThrown() {
         log.info("Running whenNoAvailableDatesForReservationThenExceptionIsThrown");
 
-        Assertions.assertThrows(IslandApplicationException.class, () ->
+        Assertions.assertThrows(ReservationException.class, () ->
                 classUnderTest.makeReservation(TestUtils.getReservationRequestDto()));
     }
 

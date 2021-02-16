@@ -60,7 +60,7 @@ public class ReservationController {
         return this.reservationService.makeReservation(reservationRequest);
     }
 
-    @Operation(summary = "Provides an end point for fetching all existing campsite reservations.",
+    @Operation(summary = "For Debug only! Provides an end point for fetching all existing campsite reservations.",
             description = "Returns a list of all existing campsite reservations.")
     @ApiResponse(responseCode = "200",
             description = "Returns a list of all existing campsite reservations.",

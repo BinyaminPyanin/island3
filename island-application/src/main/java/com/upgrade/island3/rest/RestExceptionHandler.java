@@ -1,6 +1,7 @@
 package com.upgrade.island3.rest;
 
 import com.upgrade.island3.exception.IslandApplicationException;
+import com.upgrade.island3.exception.ReservationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,30 +23,36 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  */
 @Slf4j
 @ControllerAdvice
-public class ExceptionController extends ResponseEntityExceptionHandler {
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private static final String EXCEPTION_PREFIX = "Exception: {}";
 
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Object> islnadExceptionHandler(RuntimeException ex, WebRequest request) {
+    public ResponseEntity<Object> islandExceptionHandler(RuntimeException ex, WebRequest request) {
         log.debug(EXCEPTION_PREFIX, ex.getLocalizedMessage());
         return handleExceptionInternal(ex, ex.getLocalizedMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
+    @ExceptionHandler(ReservationException.class)
+    public ResponseEntity<Object> islandExceptionHandler(ReservationException ex, WebRequest request) {
+        log.debug(EXCEPTION_PREFIX, ex.getLocalizedMessage());
+        return handleExceptionInternal(ex, ex.getLocalizedMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
     @ExceptionHandler(IslandApplicationException.class)
-    public ResponseEntity<Object> islnadExceptionHandler(IslandApplicationException ex, WebRequest request, Model map) {
+    public ResponseEntity<Object> islandExceptionHandler(IslandApplicationException ex, WebRequest request, Model map) {
         log.debug(EXCEPTION_PREFIX, ex.getLocalizedMessage());
         return handleExceptionInternal(ex, ex.getLocalizedMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler(value = {JpaSystemException.class})
-    protected ResponseEntity<Object> islnadExceptionHandler(JpaSystemException ex, WebRequest request) {
+    protected ResponseEntity<Object> islandExceptionHandler(JpaSystemException ex, WebRequest request) {
         log.debug(EXCEPTION_PREFIX, ex.getLocalizedMessage());
         return handleExceptionInternal(ex, ex.getLocalizedMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
     @ExceptionHandler(value = {ObjectOptimisticLockingFailureException.class})
-    protected ResponseEntity<Object> islnadExceptionHandler(ObjectOptimisticLockingFailureException ex, WebRequest request) {
+    protected ResponseEntity<Object> islandExceptionHandler(ObjectOptimisticLockingFailureException ex, WebRequest request) {
         log.debug(EXCEPTION_PREFIX, ex.getLocalizedMessage());
         return handleExceptionInternal(ex, ex.getLocalizedMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
     }

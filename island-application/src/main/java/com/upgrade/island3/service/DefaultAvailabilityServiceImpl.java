@@ -6,7 +6,6 @@ import com.upgrade.island3.model.Status;
 import com.upgrade.island3.repository.AvailabilityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,10 +30,6 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
     private AvailabilityRepository availabilityRepository;
     private StatusService statusService;
     private MessageSource messageSource;
-
-    //TODO why?
-    @Value("${availability.default.date.range.days:31}")
-    private int defaultDateRangeDays;
 
     @Autowired
     public DefaultAvailabilityServiceImpl(AvailabilityRepository availabilityRepository,
@@ -80,6 +75,7 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
     }
 
     @Override
+    @Transactional
     public void saveAll(List<Availability> availabilityList) {
         log.info("Saving availabilities : {}",
                 availabilityList.stream().map(Object::toString).collect(Collectors.joining(",")));
@@ -87,6 +83,7 @@ public class DefaultAvailabilityServiceImpl implements AvailabilityService {
     }
 
     @Override
+    @Transactional
     public Availability findAvailabilityByDate(LocalDate localDate) {
         log.info("Fetching availability by date {}", localDate);
 
