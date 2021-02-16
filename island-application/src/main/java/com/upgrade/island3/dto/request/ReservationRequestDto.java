@@ -1,5 +1,6 @@
 package com.upgrade.island3.dto.request;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
  * @since 20210214
  */
 @Data
+@Builder
 public class ReservationRequestDto {
     @NotEmpty(message = "{island.validation.firstname.empty}")
     @NotNull
