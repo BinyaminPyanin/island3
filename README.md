@@ -44,16 +44,17 @@ Then to run that docker image run:
 ### Swagger/OpenAPI End Points
 
 OpenAPI documentation can be accessed with the following endpoints:
- 
-http://localhost:8080/openapi/rapidoc/index.html using [RapiDoc](https://mrin9.github.io/RapiDoc/)
 
 http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://swagger.io/tools/swagger-ui/)
 
+http://localhost:8080/openapi/rapidoc/index.html using [RapiDoc](https://mrin9.github.io/RapiDoc/)
+
+
 ### Health check
-`http://localhost:8080/health`
+http://localhost:8080/health
 
 ### Info check
-`http://localhost:8080/info`
+http://localhost:8080/info
 
 
 ## Constraints implemented
@@ -80,7 +81,7 @@ http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://s
  - Lombok 
  - Actuators
  - Exception Handler
- - Convertors Entity to Dto
+ - Convertors Entity to Dto / Dto To Entity
  - Docker
  - Git
  - Messages
@@ -90,6 +91,10 @@ http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://s
  - Flyway migration
  - JUnit
  - Integration Tests
+ - Concurrent Tests
+ 
+ ## Test coverage 87%
+ TestCoverage_87.png
  
  ## Data Model
  DataModel1.png
