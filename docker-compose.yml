@@ -9,4 +9,17 @@ services:
       POSTGRES_DB: island_camping27
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
-      
+  app:
+    image: island:latest
+    container_name: island
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db/island_camping25
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin123
+    depends_on:
+      - db
