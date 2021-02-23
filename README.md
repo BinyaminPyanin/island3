@@ -34,6 +34,9 @@ http://localhost:8080/openapi/swagger-ui/index.html using [Swagger-UI](https://s
 
 http://localhost:8080/openapi/rapidoc/index.html using [RapiDoc](https://mrin9.github.io/RapiDoc/)
 
+or see 
+
+documents/UpgradeIslandApi.pdf
 
 ### Health check
 http://localhost:8080/health
@@ -79,12 +82,12 @@ http://localhost:8080/info
  - Concurrent Tests
  
  ## Test coverage 87%
- TestCoverage_87.png
+ documents/TestCoverage_87.png
  
  ## Data Model
- DataModel1.png
+ documents/DataModel1.png
  
- DataModel2.png
+ documents/DataModel2.png
  
  ## Testing
  Reservation request body json example:
